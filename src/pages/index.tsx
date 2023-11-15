@@ -1,7 +1,8 @@
 import Head from "next/head";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import client from "tina/__generated__/client";
-import { type PostQuery } from "tina/__generated__/types";
+import { type PostConnectionQuery } from "tina/__generated__/types";
 import { TinaMarkdown } from "tinacms/dist/rich-text";
 import Header from "~/compontents/Header";
 import { Button } from "~/compontents/ui/button";
@@ -9,19 +10,28 @@ import { Textarea } from "~/compontents/ui/textarea";
 import { type Query } from "~/types/tina";
 
 export default function Home() {
-  const [data, setData] = useState<Query<PostQuery>>();
+  const [data, setData] = useState<Query<PostConnectionQuery>>();
 
   useEffect(() => {
-    async function getPost() {
-      const post = await client.queries.post({
-        relativePath: "hello-world.md",
-      });
-      setData(post);
+    async function getPosts() {
+      const postsResponse = await client.queries.postConnection();
+      setData(postsResponse);
     }
-    void getPost();
+    void getPosts();
   }, []);
 
   console.log(data);
+
+  const posts = data?.data.postConnection.edges?.map((post) => {
+    return (
+      <Link href={`/blog/${post?.node?._sys.filename}`} key={post?.node?.id}>
+        <div>
+          <h2>{post?.node?.title}</h2>
+          <p>{post?.node?.description}</p>
+        </div>
+      </Link>
+    );
+  });
   return (
     <>
       <Head>
@@ -33,12 +43,9 @@ export default function Home() {
       <main className="flex flex-col items-center justify-center">
         <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
           <div className="flex max-w-prose flex-col gap-4">
-            <h2 className="text-3xl">{data?.data.post.title}</h2>
             {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}
-            <TinaMarkdown content={data?.data.post.body} />
           </div>
-          <Button variant={"secondary"}>Click me</Button>
-          <Textarea />
+          {posts}
         </div>
       </main>
     </>
