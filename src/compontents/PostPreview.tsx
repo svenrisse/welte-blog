@@ -27,6 +27,7 @@ export default function PostPreview({ post }: { post: PostConnectionEdges }) {
           </div>
           <div>
             <Image
+              unoptimized
               src={imagePath!}
               alt="image"
               width={0}
