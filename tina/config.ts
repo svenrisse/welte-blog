@@ -92,7 +92,6 @@ export default defineConfig({
             type: "datetime",
             name: "createdAt",
             label: "Created at (no need to touch)",
-            required: true,
           },
         ],
         //ui: {
