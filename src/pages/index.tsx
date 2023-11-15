@@ -1,34 +1,15 @@
 import Head from "next/head";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import client from "tina/__generated__/client";
-import { PostQuery } from "tina/__generated__/types";
-import { Exact } from "tina/__generated__/types";
+import { type PostQuery } from "tina/__generated__/types";
 import { TinaMarkdown } from "tinacms/dist/rich-text";
 import Header from "~/compontents/Header";
 import { Button } from "~/compontents/ui/button";
 import { Textarea } from "~/compontents/ui/textarea";
-
-type Query = {
-  data: PostQuery;
-  errors?:
-    | {
-        message: string;
-        locations: {
-          line: number;
-          column: number;
-        }[];
-        path: string[];
-      }[]
-    | undefined;
-  variables: Exact<{
-    relativePath: string;
-  }>;
-  query: string;
-};
+import { type Query } from "~/types/tina";
 
 export default function Home() {
-  const [data, setData] = useState<Query>();
+  const [data, setData] = useState<Query<PostQuery>>();
 
   useEffect(() => {
     async function getPost() {

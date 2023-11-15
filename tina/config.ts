@@ -20,6 +20,25 @@ export default defineConfig({
   schema: {
     collections: [
       {
+        name: "about",
+        label: "About",
+        path: "content/about",
+        ui: {
+          allowedActions: {
+            create: false,
+            delete: false,
+          },
+        },
+        fields: [
+          {
+            type: "rich-text",
+            name: "body",
+            label: "Body",
+            isBody: true,
+          },
+        ],
+      },
+      {
         name: "post",
         label: "Posts",
         path: "content/posts",
