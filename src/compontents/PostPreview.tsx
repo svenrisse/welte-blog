@@ -14,6 +14,8 @@ export default function PostPreview({ post }: { post: PostConnectionEdges }) {
     "MMM d" + (date.getFullYear() == new Date().getFullYear() ? "" : ", YYYY"),
   );
 
+  const imagePath = post.node?.heroImage;
+
   return (
     <div className="hover:bg-primary-foreground flex w-full flex-col">
       <Link href={`/blog/${post?.node?._sys.filename}`}>
@@ -25,7 +27,7 @@ export default function PostPreview({ post }: { post: PostConnectionEdges }) {
           </div>
           <div>
             <Image
-              src={post.node!.heroImage}
+              src={imagePath!}
               alt="image"
               width={0}
               height={0}
