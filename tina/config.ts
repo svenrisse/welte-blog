@@ -1,4 +1,4 @@
-import { defineConfig } from "tinacms";
+import { Form, TinaCMS, defineConfig } from "tinacms";
 
 // Your hosting provider likely exposes this as an environment variable
 const branch = process.env.HEAD ?? process.env.VERCEL_GIT_COMMIT_REF ?? "main";
@@ -42,6 +42,24 @@ export default defineConfig({
         name: "post",
         label: "Posts",
         path: "content/posts",
+        ui: {
+          beforeSubmit: async ({
+            form,
+            cms,
+            values,
+          }: {
+            form: Form;
+            cms: TinaCMS;
+            values: Record<string, any>;
+          }) => {
+            if (form.crudType === "create") {
+              return {
+                ...values,
+                createdAt: new Date().toISOString(),
+              };
+            }
+          },
+        },
         fields: [
           {
             type: "string",
@@ -51,16 +69,33 @@ export default defineConfig({
             required: true,
           },
           {
+            type: "string",
+            name: "description",
+            label: "Description",
+            required: true,
+          },
+          {
+            type: "image",
+            name: "heroImage",
+            label: "Hero Image",
+            required: true,
+          },
+          {
             type: "rich-text",
             name: "body",
             label: "Body",
             isBody: true,
           },
+          {
+            type: "datetime",
+            name: "createdAt",
+            label: "Created at",
+          },
         ],
-        ui: {
-          // This is an DEMO router. You can remove this to fit your site
-          router: ({ document }) => `/demo/blog/${document._sys.filename}`,
-        },
+        //ui: {
+        // This is an DEMO router. You can remove this to fit your site
+        //  router: ({ document }) => `/demo/blog/${document._sys.filename}`,
+        // },
       },
     ],
   },
