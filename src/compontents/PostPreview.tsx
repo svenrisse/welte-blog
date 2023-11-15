@@ -4,6 +4,7 @@ import { type PostConnectionEdges } from "tina/__generated__/types";
 import format from "date-fns/format";
 import Image from "next/image";
 import { Heart, MessageCircle, Share } from "lucide-react";
+import { Button } from "./ui/button";
 
 export default function PostPreview({ post }: { post: PostConnectionEdges }) {
   const date = parseISO(post.node!.createdAt!);
@@ -34,9 +35,16 @@ export default function PostPreview({ post }: { post: PostConnectionEdges }) {
           </div>
         </div>
         <div className="flex w-full justify-between px-1 py-3">
-          <Heart />
-          <MessageCircle />
-          <Share />
+          <Button variant={"ghost"} size={"icon"}>
+            <Heart />
+          </Button>
+
+          <Button variant={"ghost"} size={"icon"}>
+            <MessageCircle />
+          </Button>
+          <Button variant={"ghost"} size={"icon"}>
+            <Share />
+          </Button>
         </div>
       </Link>
     </div>
