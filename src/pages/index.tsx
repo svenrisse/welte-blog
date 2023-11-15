@@ -30,7 +30,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header active="home" />
-      <main className="flex min-h-screen flex-col items-center justify-center">
+      <main className="flex flex-col items-center justify-center">
         <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
           <div className="flex max-w-prose flex-col gap-4">
             <h2 className="text-3xl">{data?.data.post.title}</h2>
