@@ -50,7 +50,9 @@ export default defineConfig({
           }: {
             form: Form;
             cms: TinaCMS;
+            //eslint-disable-next-line @typescript-eslint/no-explicit-any
             values: Record<string, any>;
+            // eslint-disable-next-line @typescript-eslint/require-await
           }) => {
             if (form.crudType === "create") {
               return {
@@ -89,7 +91,8 @@ export default defineConfig({
           {
             type: "datetime",
             name: "createdAt",
-            label: "Created at",
+            label: "Created at (no need to touch)",
+            required: true,
           },
         ],
         //ui: {
