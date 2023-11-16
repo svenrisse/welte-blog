@@ -35,7 +35,7 @@ export default function PostPreview({ post }: { post: PostConnectionEdges }) {
             />
           </div>
         </div>
-        <div className="flex w-full justify-between px-1 py-3">
+        <div className="flex w-full justify-between px-1 pt-6">
           <Button variant={"ghost"} size={"icon"}>
             <Heart />
           </Button>
