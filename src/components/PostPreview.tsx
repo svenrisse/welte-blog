@@ -6,7 +6,13 @@ import Image from "next/image";
 import { Heart, MessageCircle, Share } from "lucide-react";
 import { Button } from "./ui/button";
 
-export default function PostPreview({ post }: { post: PostConnectionEdges }) {
+export default function PostPreview({
+  post,
+  image,
+}: {
+  post: PostConnectionEdges;
+  image: string;
+}) {
   const date = parseISO(post.node!.createdAt!);
 
   const formattedDate = format(
@@ -14,10 +20,8 @@ export default function PostPreview({ post }: { post: PostConnectionEdges }) {
     "MMM d" + (date.getFullYear() == new Date().getFullYear() ? "" : ", YYYY"),
   );
 
-  const imagePath = post.node?.heroImage;
-
   return (
-    <div className="hover:bg-primary-foreground flex w-full flex-col">
+    <div className="flex w-full flex-col hover:bg-primary-foreground">
       <Link href={`/blog/${post?.node?._sys.filename}`}>
         <div className="flex justify-between">
           <div className="flex flex-col gap-4">
@@ -27,8 +31,7 @@ export default function PostPreview({ post }: { post: PostConnectionEdges }) {
           </div>
           <div>
             <Image
-              unoptimized
-              src={imagePath!}
+              src={image}
               alt="image"
               width={0}
               height={0}
