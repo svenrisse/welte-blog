@@ -6,13 +6,7 @@ import Image from "next/image";
 import { Heart, MessageCircle, Share } from "lucide-react";
 import { Button } from "./ui/button";
 
-export default function PostPreview({
-  post,
-  image,
-}: {
-  post: PostConnectionEdges;
-  image: string;
-}) {
+export default function PostPreview({ post }: { post: PostConnectionEdges }) {
   const date = parseISO(post.node!.createdAt!);
 
   const formattedDate = format(
@@ -31,7 +25,8 @@ export default function PostPreview({
           </div>
           <div>
             <Image
-              src={`/${image}`}
+              src={post.node!.heroImage}
+              unoptimized
               alt="image"
               width={0}
               height={0}

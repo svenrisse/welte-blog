@@ -27,11 +27,7 @@ export default function PostList() {
 
   const posts = sortedEdges?.map((post) => {
     return (
-      <PostPreview
-        key={post?.node?.id}
-        post={post as PostConnectionEdges}
-        image={post!.node!.heroImage.slice(1)}
-      />
+      <PostPreview key={post?.node?.id} post={post as PostConnectionEdges} />
     );
   });
 
