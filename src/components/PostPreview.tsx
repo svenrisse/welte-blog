@@ -31,7 +31,7 @@ export default function PostPreview({
           </div>
           <div>
             <Image
-              src={"/77jfag.jpg"}
+              src={`/${image}`}
               alt="image"
               width={0}
               height={0}

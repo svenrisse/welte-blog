@@ -30,7 +30,7 @@ export default function PostList() {
       <PostPreview
         key={post?.node?.id}
         post={post as PostConnectionEdges}
-        image={post?.node ? post.node.heroImage : ""}
+        image={post!.node!.heroImage.slice(1)}
       />
     );
   });
