@@ -6,6 +6,7 @@ import {
 } from "tina/__generated__/types";
 import PostPreview from "~/components/PostPreview";
 import { Button } from "./ui/button";
+import { Separator } from "~/components/ui/separator";
 
 export default function PostList() {
   const [data, setData] = useState<PostConnectionQuery>();
@@ -25,9 +26,13 @@ export default function PostList() {
     return 0;
   });
 
-  const posts = sortedEdges?.map((post) => {
+  const posts = sortedEdges?.map((post, index) => {
     return (
-      <PostPreview key={post?.node?.id} post={post as PostConnectionEdges} />
+      <>
+        <Separator />
+        <PostPreview key={post?.node?.id} post={post as PostConnectionEdges} />
+        {index + 1 === sortedEdges.length && <Separator />}
+      </>
     );
   });
 
@@ -47,7 +52,7 @@ export default function PostList() {
           Top
         </Button>
       </div>
-      <div className="flex flex-col items-center justify-center gap-12">
+      <div className="flex flex-col items-center justify-center gap-6">
         {posts}
       </div>
     </div>
