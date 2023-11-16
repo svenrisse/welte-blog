@@ -1,4 +1,5 @@
-import { Form, TinaCMS, defineConfig } from "tinacms";
+import { type } from "os";
+import { type Form, type TinaCMS, defineConfig } from "tinacms";
 
 // Your hosting provider likely exposes this as an environment variable
 const branch = process.env.HEAD ?? process.env.VERCEL_GIT_COMMIT_REF ?? "main";
@@ -69,12 +70,14 @@ export default defineConfig({
             label: "Title",
             isTitle: true,
             required: true,
+            searchable: true,
           },
           {
             type: "string",
             name: "description",
             label: "Description",
             required: true,
+            searchable: true,
           },
           {
             type: "image",
@@ -98,6 +101,50 @@ export default defineConfig({
         // This is an DEMO router. You can remove this to fit your site
         //  router: ({ document }) => `/demo/blog/${document._sys.filename}`,
         // },
+      },
+      {
+        name: "recommendations",
+        label: "Your Recommendations",
+        path: "content/recommendations",
+        fields: [
+          {
+            type: "string",
+            name: "heading",
+            label: "Heading",
+            required: true,
+            searchable: true,
+          },
+          {
+            type: "string",
+            name: "description",
+            label: "Description",
+          },
+          {
+            type: "image",
+            name: "recImage",
+            label: "Image",
+          },
+        ],
+      },
+      {
+        name: "socials",
+        label: "Your Socials",
+        path: "content/socials",
+        fields: [
+          {
+            type: "string",
+            name: "icon",
+            label: "Name",
+            description: "Please provide name like 'Instagram', 'Twitter'",
+            required: true,
+          },
+          {
+            type: "string",
+            name: "url",
+            label: "URL",
+            required: true,
+          },
+        ],
       },
     ],
   },
