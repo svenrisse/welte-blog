@@ -39,7 +39,6 @@ export default function PostPreview({ post }: { post: PostConnectionEdges }) {
           <Button variant={"ghost"} size={"icon"}>
             <Heart />
           </Button>
-
           <Button variant={"ghost"} size={"icon"}>
             <MessageCircle />
           </Button>
