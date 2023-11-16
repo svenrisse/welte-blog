@@ -1,6 +1,6 @@
 import Head from "next/head";
-import Header from "~/compontents/Header";
-import PostList from "~/compontents/PostList";
+import Header from "~/components/Header";
+import PostList from "~/components/PostList";
 
 export default function Home() {
   return (

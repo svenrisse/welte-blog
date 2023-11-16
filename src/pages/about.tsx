@@ -1,4 +1,4 @@
-import Header from "~/compontents/Header";
+import Header from "~/components/Header";
 import { type Query } from "~/types/tina";
 import { useState, useEffect } from "react";
 import client from "tina/__generated__/client";

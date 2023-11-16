@@ -4,7 +4,7 @@ import {
   type PostConnectionEdges,
   type PostConnectionQuery,
 } from "tina/__generated__/types";
-import PostPreview from "~/compontents/PostPreview";
+import PostPreview from "~/components/PostPreview";
 import { Button } from "./ui/button";
 
 export default function PostList() {

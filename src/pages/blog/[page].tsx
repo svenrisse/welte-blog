@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import client from "tina/__generated__/client";
-import Header from "~/compontents/Header";
+import Header from "~/components/Header";
 import { TinaMarkdown } from "tinacms/dist/rich-text";
 import { type Query } from "~/types/tina";
 import { type PostQuery } from "tina/__generated__/types";
