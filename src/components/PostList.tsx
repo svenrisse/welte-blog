@@ -1,26 +1,24 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import client from "tina/__generated__/client";
-import {
-  type PostConnectionEdges,
-  type PostConnectionQuery,
-} from "tina/__generated__/types";
+import { type PostConnectionEdges } from "tina/__generated__/types";
 import PostPreview from "~/components/PostPreview";
 import { Button } from "./ui/button";
 import { Separator } from "~/components/ui/separator";
+import { useQuery } from "@tanstack/react-query";
 
 export default function PostList() {
-  const [data, setData] = useState<PostConnectionQuery>();
   const [sort, setSort] = useState<"new" | "top">("new");
 
-  useEffect(() => {
-    async function getPosts() {
+  const { data } = useQuery({
+    queryKey: ["posts"],
+    refetchOnWindowFocus: false,
+    queryFn: async () => {
       const postsResponse = await client.queries.postConnection({});
-      setData(postsResponse.data);
-    }
-    void getPosts();
-  }, []);
+      return postsResponse;
+    },
+  });
 
-  const sortedEdges = data?.postConnection.edges?.sort(function (a, b) {
+  const sortedEdges = data?.data.postConnection.edges?.sort(function (a, b) {
     if (a!.node!.createdAt! < b!.node!.createdAt!) return 1;
     if (a!.node!.createdAt! > b!.node!.createdAt!) return -1;
     return 0;
