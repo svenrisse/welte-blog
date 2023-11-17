@@ -17,12 +17,11 @@ export default function Recommendations() {
 
   const recs = data?.data.recommendationsConnection.edges?.map((rec) => {
     return (
-      <div key={rec?.node?.id}>
-        <Link href={rec?.node ? rec.node.link : ""}>
+      <Link href={rec?.node ? rec.node.link : ""} key={rec?.node?.id}>
+        <div>
           <div>
             <Image
-              src={rec.node!.recImage}
-              unoptimized
+              src={rec!.node!.recImage}
               alt="image"
               width={0}
               height={0}
@@ -32,8 +31,8 @@ export default function Recommendations() {
           </div>
           <h2>{rec?.node?.heading}</h2>
           <span>{rec?.node?.description}</span>
-        </Link>
-      </div>
+        </div>
+      </Link>
     );
   });
 
