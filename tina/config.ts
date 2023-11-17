@@ -1,4 +1,3 @@
-import { type } from "os";
 import { type Form, type TinaCMS, defineConfig } from "tinacms";
 
 // Your hosting provider likely exposes this as an environment variable
@@ -123,6 +122,7 @@ export default defineConfig({
             type: "image",
             name: "recImage",
             label: "Image",
+            required: true
           },
           {
             type: "string",
