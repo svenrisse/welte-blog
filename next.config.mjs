@@ -6,6 +6,16 @@ await import("./src/env.mjs");
 
 /** @type {import("next").NextConfig} */
 const config = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "assets.tina.io",
+        port: "",
+        pathname: "/a644fcaa-1f56-440a-a9c0-1f5520337875/**",
+      },
+    ],
+  },
   reactStrictMode: true,
 
   /**
