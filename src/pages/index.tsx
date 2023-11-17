@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from "next/link";
 import Header from "~/components/Header";
 import PostList from "~/components/PostList";
 import { Separator } from "~/components/ui/separator";
@@ -16,10 +17,12 @@ export default function Home() {
         <div className="w-full px-6 py-6">
           <PostList />
         </div>
-        <div>
-          <div>
+        <div className="w-full px-6 py-6">
+          <div className="flex justify-between pb-4">
             <h2 className="font-bold">Recommendations</h2>
-            <span>View all</span>
+            <Link href={"/recommendations"}>
+              <span className="hover:underline">View all</span>
+            </Link>
           </div>
           <Separator />
         </div>
