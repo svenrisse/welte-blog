@@ -26,7 +26,6 @@ export default function PostPreview({ post }: { post: PostConnectionEdges }) {
           <div>
             <Image
               src={post.node!.heroImage}
-              unoptimized
               alt="image"
               width={0}
               height={0}
