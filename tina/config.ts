@@ -124,6 +124,12 @@ export default defineConfig({
             name: "recImage",
             label: "Image",
           },
+          {
+            type: "string",
+            name: "link",
+            label: "Link",
+            required: true,
+          },
         ],
       },
       {
