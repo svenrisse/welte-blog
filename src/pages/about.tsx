@@ -1,30 +1,24 @@
 import Header from "~/components/Header";
-import { type Query } from "~/types/tina";
-import { useState, useEffect } from "react";
 import client from "tina/__generated__/client";
 import { TinaMarkdown } from "tinacms/dist/rich-text";
-import { type AboutQuery } from "tina/__generated__/types";
+import { useQuery } from "@tanstack/react-query";
 
 export default function About() {
-  const [data, setData] = useState<Query<AboutQuery>>();
-
-  useEffect(() => {
-    async function getAbout() {
+  const { data } = useQuery({
+    queryKey: ["about"],
+    refetchOnWindowFocus: false,
+    queryFn: async () => {
       const about = await client.queries.about({
         relativePath: "about_text.md",
       });
-      setData(about);
-    }
-    void getAbout();
-  }, []);
-
-  console.log(data);
-
+      return about;
+    },
+  });
   return (
     <>
       <Header active="about" />
       <main className="flex flex-col items-center justify-center">
-        <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
+        <div className="flex flex-col items-center justify-center px-4 py-8">
           <div className="prose">
             {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}
             <TinaMarkdown content={data?.data.about.body} />
