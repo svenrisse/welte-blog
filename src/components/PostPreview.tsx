@@ -25,9 +25,7 @@ export default function PostPreview({ post }: { post: PostConnectionEdges }) {
           </div>
           <div>
             <Image
-              src={`https://assets.tina.io/a644fcaa-1f56-440a-a9c0-1f5520337875${
-                post.node!.heroImage
-              }`}
+              src={post.node!.heroImage}
               alt={post.node!.title}
               width={0}
               height={0}
