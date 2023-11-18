@@ -23,9 +23,7 @@ export default function Recommendations() {
           <div>
             <div>
               <Image
-                src={`https://assets.tina.io/a644fcaa-1f56-440a-a9c0-1f5520337875${
-                  rec!.node!.recImage
-                }`}
+                src={rec!.node!.recImage}
                 alt="image"
                 width={0}
                 height={0}
