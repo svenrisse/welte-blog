@@ -9,7 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 export default function PostList() {
   const [sort, setSort] = useState<"new" | "top">("new");
 
-  const { data } = useQuery({
+  const { data, isInitialLoading } = useQuery({
     queryKey: ["posts"],
     refetchOnWindowFocus: false,
     queryFn: async () => {
@@ -18,7 +18,7 @@ export default function PostList() {
     },
   });
 
-  const sortedEdges = data?.data.postConnection.edges?.sort(function (a, b) {
+  const sortedEdges = data?.data?.postConnection?.edges?.sort(function (a, b) {
     if (a!.node!.createdAt! < b!.node!.createdAt!) return 1;
     if (a!.node!.createdAt! > b!.node!.createdAt!) return -1;
     return 0;
@@ -28,7 +28,11 @@ export default function PostList() {
     return (
       <>
         <Separator />
-        <PostPreview key={post?.node?.id} post={post as PostConnectionEdges} />
+        <PostPreview
+          key={post?.node?.id}
+          post={post as PostConnectionEdges}
+          isInitialLoading={isInitialLoading}
+        />
         {index + 1 === sortedEdges.length && <Separator />}
       </>
     );

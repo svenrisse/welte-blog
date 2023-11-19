@@ -5,14 +5,25 @@ import format from "date-fns/format";
 import Image from "next/image";
 import { Heart, MessageCircle, Share } from "lucide-react";
 import { Button } from "./ui/button";
+import { Skeleton } from "./ui/skeleton";
 
-export default function PostPreview({ post }: { post: PostConnectionEdges }) {
+export default function PostPreview({
+  post,
+  isInitialLoading,
+}: {
+  post: PostConnectionEdges;
+  isInitialLoading: boolean;
+}) {
   const date = parseISO(post.node!.createdAt!);
 
   const formattedDate = format(
     date,
     "MMM d" + (date.getFullYear() == new Date().getFullYear() ? "" : ", YYYY"),
   );
+
+  if (isInitialLoading) {
+    return <Skeleton />;
+  }
 
   return (
     <div className="flex w-full flex-col hover:bg-primary-foreground">
