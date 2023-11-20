@@ -9,10 +9,10 @@ import { Skeleton } from "./ui/skeleton";
 
 export default function PostPreview({
   post,
-  isInitialLoading,
+  isLoading,
 }: {
   post: PostConnectionEdges;
-  isInitialLoading: boolean;
+  isLoading: boolean;
 }) {
   const date = parseISO(post.node!.createdAt!);
 
@@ -21,8 +21,33 @@ export default function PostPreview({
     "MMM d" + (date.getFullYear() == new Date().getFullYear() ? "" : ", YYYY"),
   );
 
-  if (isInitialLoading) {
-    return <Skeleton />;
+  if (isLoading) {
+    return (
+      <div className="flex w-full flex-col hover:bg-primary-foreground">
+        <div className="flex justify-between">
+          <div className="flex flex-col gap-4">
+            <Skeleton className="h-[28px] w-52" />
+            <Skeleton className="h-[20px]" />
+            <Skeleton className="h-[20px]" />
+            <Skeleton className="h-[20px] w-16" />
+          </div>
+          <div>
+            <Skeleton className="h-20 w-20 rounded-xl" />
+          </div>
+        </div>
+        <div className="flex w-full justify-between px-1 pt-6">
+          <Button variant={"ghost"} size={"icon"}>
+            <Heart />
+          </Button>
+          <Button variant={"ghost"} size={"icon"}>
+            <MessageCircle />
+          </Button>
+          <Button variant={"ghost"} size={"icon"}>
+            <Share />
+          </Button>
+        </div>
+      </div>
+    );
   }
 
   return (
