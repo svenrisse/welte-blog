@@ -5,15 +5,8 @@ import format from "date-fns/format";
 import Image from "next/image";
 import { Heart, MessageCircle, Share } from "lucide-react";
 import { Button } from "./ui/button";
-import { Skeleton } from "./ui/skeleton";
 
-export default function PostPreview({
-  post,
-  isLoading,
-}: {
-  post: PostConnectionEdges;
-  isLoading: boolean;
-}) {
+export default function PostPreview({ post }: { post: PostConnectionEdges }) {
   const date = parseISO(post.node!.createdAt!);
 
   const formattedDate = format(
@@ -41,7 +34,6 @@ export default function PostPreview({
             />
           </div>
         </div>
-        {isLoading ? "loading" : "false"}
         <div className="flex w-full justify-between px-1 pt-6">
           <Button variant={"ghost"} size={"icon"}>
             <Heart />

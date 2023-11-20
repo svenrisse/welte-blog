@@ -7,6 +7,8 @@ import { Separator } from "~/components/ui/separator";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "./ui/skeleton";
 import { Heart, MessageCircle, Share } from "lucide-react";
+import PostPreviewSpinner from "./PostPreviewSpinner";
+import { times } from "lodash";
 
 export default function PostList() {
   const [sort, setSort] = useState<"new" | "top">("new");
@@ -33,38 +35,7 @@ export default function PostList() {
     return (
       <>
         <Separator />
-        {isLoading ? (
-          <div className="flex w-full flex-col hover:bg-primary-foreground">
-            <div className="flex justify-between">
-              <div className="flex flex-col gap-4">
-                <Skeleton className="h-[28px] w-52" />
-                <Skeleton className="h-[20px]" />
-                <Skeleton className="h-[20px]" />
-                <Skeleton className="h-[20px] w-16" />
-              </div>
-              <div>
-                <Skeleton className="h-20 w-20 rounded-xl" />
-              </div>
-            </div>
-            <div className="flex w-full justify-between px-1 pt-6">
-              <Button variant={"ghost"} size={"icon"}>
-                <Heart />
-              </Button>
-              <Button variant={"ghost"} size={"icon"}>
-                <MessageCircle />
-              </Button>
-              <Button variant={"ghost"} size={"icon"}>
-                <Share />
-              </Button>
-            </div>
-          </div>
-        ) : (
-          <PostPreview
-            key={post?.node?.id}
-            post={post as PostConnectionEdges}
-            isLoading={isLoading}
-          />
-        )}
+        <PostPreview key={post?.node?.id} post={post as PostConnectionEdges} />
         {index + 1 === sortedEdges.length && <Separator />}
       </>
     );
@@ -87,7 +58,19 @@ export default function PostList() {
         </Button>
       </div>
       <div className="flex flex-col items-center justify-center gap-6">
-        {posts}
+        {isLoading ? (
+          <>
+            {times(5, (index) => (
+              <>
+                <Separator />
+                <PostPreviewSpinner />
+                {index + 1 === 5 && <Separator />}
+              </>
+            ))}
+          </>
+        ) : (
+          <>{posts}</>
+        )}
       </div>
     </div>
   );
