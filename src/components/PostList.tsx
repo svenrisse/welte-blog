@@ -5,8 +5,6 @@ import PostPreview from "~/components/PostPreview";
 import { Button } from "./ui/button";
 import { Separator } from "~/components/ui/separator";
 import { useQuery } from "@tanstack/react-query";
-import { Skeleton } from "./ui/skeleton";
-import { Heart, MessageCircle, Share } from "lucide-react";
 import PostPreviewSpinner from "./PostPreviewSpinner";
 import { times } from "lodash";
 
