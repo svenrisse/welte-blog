@@ -7,7 +7,7 @@ import Recommendation from "~/components/Recommendation";
 import { type RecommendationsConnectionEdges } from "tina/__generated__/types";
 
 export default function Recommendations() {
-  const { data, isInitialLoading } = useQuery({
+  const { data } = useQuery({
     queryKey: ["posts"],
     refetchOnWindowFocus: false,
     queryFn: async () => {
@@ -21,10 +21,7 @@ export default function Recommendations() {
       return (
         <>
           <Separator />
-          <Recommendation
-            rec={rec as RecommendationsConnectionEdges}
-            isInitialLoading={isInitialLoading}
-          />
+          <Recommendation rec={rec as RecommendationsConnectionEdges} />
           {index + 1 === data?.data.recommendationsConnection.edges?.length && (
             <Separator />
           )}

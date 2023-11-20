@@ -3,10 +3,8 @@ import Image from "next/image";
 import { type RecommendationsConnectionEdges } from "tina/__generated__/types";
 export default function Recommendation({
   rec,
-  isInitialLoading,
 }: {
   rec: RecommendationsConnectionEdges;
-  isInitialLoading: boolean;
 }) {
   return (
     <Link href={rec?.node ? rec.node.link : ""} key={rec?.node?.id}>

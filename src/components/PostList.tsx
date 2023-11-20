@@ -10,15 +10,12 @@ import { times } from "lodash";
 
 export default function PostList() {
   const [sort, setSort] = useState<"new" | "top">("new");
-  const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["posts"],
     refetchOnWindowFocus: false,
     queryFn: async () => {
-      setIsLoading(true);
       const postsResponse = await client.queries.postConnection({});
-      setIsLoading(false);
       return postsResponse;
     },
   });
