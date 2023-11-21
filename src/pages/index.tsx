@@ -3,6 +3,7 @@ import Link from "next/link";
 import Header from "~/components/Header";
 import PostList from "~/components/PostList";
 import { Separator } from "~/components/ui/separator";
+import RecommendationList from "~/components/RecommendationList";
 
 export default function Home() {
   return (
@@ -24,6 +25,7 @@ export default function Home() {
               <span className="hover:underline">View all</span>
             </Link>
           </div>
+          <RecommendationList take={5} />
           <Separator />
         </div>
       </main>
