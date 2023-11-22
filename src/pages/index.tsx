@@ -25,7 +25,7 @@ export default function Home() {
               <span className="hover:underline">View all</span>
             </Link>
           </div>
-          <RecommendationList take={5} />
+          <RecommendationList take={3} />
           <Separator />
         </div>
       </main>

@@ -16,7 +16,7 @@ export default function RecommendationList({ take }: { take?: number }) {
     queryFn: async (): Promise<response> => {
       const response = await client.request({
         query: `{
-          recommendationsConnection {
+          recommendationsConnection(first: ${take ? take : "1000"}) {
             edges {
               node {
               heading
