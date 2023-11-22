@@ -21,7 +21,7 @@ export default function Recommendation({
           />
           <h2 className="font-bold">{rec?.node?.heading}</h2>
         </div>
-        <div className="py-2 text-gray-500">
+        <div className="py-3 text-gray-500">
           <span>{rec?.node?.description}</span>
         </div>
       </div>
