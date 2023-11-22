@@ -16,7 +16,7 @@ export default function Home() {
       <Header active="home" />
       <main className="flex flex-col items-center justify-center">
         <div className="w-full px-6 py-6">
-          <PostList />
+          <PostList take={8} hightlightFirst />
         </div>
         <div className="w-full px-6 py-6">
           <div className="flex justify-between pb-4">

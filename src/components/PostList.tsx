@@ -8,14 +8,22 @@ import { useQuery } from "@tanstack/react-query";
 import PostPreviewSpinner from "./PostPreviewSpinner";
 import { times } from "lodash";
 
-export default function PostList() {
+export default function PostList({
+  take,
+  hightlightFirst,
+}: {
+  take?: number;
+  hightlightFirst?: boolean;
+}) {
   const [sort, setSort] = useState<"new" | "top">("new");
 
   const { data, isLoading } = useQuery({
     queryKey: ["posts"],
     refetchOnWindowFocus: false,
     queryFn: async () => {
-      const postsResponse = await client.queries.postConnection({});
+      const postsResponse = await client.queries.postConnection({
+        first: take ? take : undefined,
+      });
       return postsResponse;
     },
   });
@@ -26,18 +34,24 @@ export default function PostList() {
     return 0;
   });
 
-  const posts = sortedEdges?.map((post, index) => {
-    return (
-      <>
-        <Separator />
-        <PostPreview key={post?.node?.id} post={post as PostConnectionEdges} />
-        {index + 1 === sortedEdges.length && <Separator />}
-      </>
-    );
-  });
+  const posts = sortedEdges
+    ?.slice(hightlightFirst ? 1 : 0)
+    .map((post, index) => {
+      return (
+        <>
+          <Separator />
+          <PostPreview
+            key={post?.node?.id}
+            post={post as PostConnectionEdges}
+          />
+          {index + 1 === sortedEdges.length && <Separator />}
+        </>
+      );
+    });
 
   return (
     <div>
+      <div>{isLoading ? <div /> : <HeroPost />}</div>
       <div className="flex gap-4 pb-4">
         <Button
           variant={`${sort === "new" ? "secondary" : "ghost"}`}
