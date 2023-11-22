@@ -3,14 +3,17 @@ import client from "tina/__generated__/client";
 import { Separator } from "~/components/ui/separator";
 import Recommendation from "~/components/Recommendation";
 import { type RecommendationsConnectionEdges } from "tina/__generated__/types";
+import { times } from "lodash";
+import RecommendationSpinner from "./RecommendationSpinner";
 
 type response = {
   recommendationsConnection: {
     edges: RecommendationsConnectionEdges[];
   };
 };
+
 export default function RecommendationList({ take }: { take?: number }) {
-  const { data } = useQuery({
+  const { data, isInitialLoading } = useQuery({
     queryKey: ["recs"],
     refetchOnWindowFocus: false,
     queryFn: async (): Promise<response> => {
@@ -46,5 +49,21 @@ export default function RecommendationList({ take }: { take?: number }) {
     );
   });
 
-  return <div className="w-full px-6">{recs}</div>;
+  return (
+    <div className="w-full px-6">
+      {isInitialLoading ? (
+        <>
+          {times(take ? take : 5, (index) => (
+            <>
+              <Separator />
+              <RecommendationSpinner />
+              {index + 1 === 5 && <Separator />}
+            </>
+          ))}
+        </>
+      ) : (
+        <>{recs}</>
+      )}
+    </div>
+  );
 }
