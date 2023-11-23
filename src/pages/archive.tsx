@@ -6,7 +6,7 @@ export default function Archive() {
     <>
       <Header active="archive" />
       <main className="flex flex-col items-center justify-center">
-        <div className="w-full px-6 py-6">
+        <div className="w-full">
           <PostList />
         </div>
       </main>

@@ -7,6 +7,7 @@ import { Separator } from "~/components/ui/separator";
 import { useQuery } from "@tanstack/react-query";
 import PostPreviewSpinner from "./PostPreviewSpinner";
 import { times } from "lodash";
+import HeroPost from "./HeroPost";
 
 export default function PostList({
   take,
@@ -50,9 +51,17 @@ export default function PostList({
     });
 
   return (
-    <div>
-      <div>{isLoading ? <div /> : <HeroPost />}</div>
-      <div className="flex gap-4 pb-4">
+    <div className={`${!hightlightFirst && "pt-6"}`}>
+      {hightlightFirst && sortedEdges && (
+        <div className="pb-4">
+          {isLoading ? (
+            <div />
+          ) : (
+            <HeroPost post={sortedEdges[0] as PostConnectionEdges} />
+          )}
+        </div>
+      )}
+      <div className="flex gap-4 px-6 pb-4">
         <Button
           variant={`${sort === "new" ? "secondary" : "ghost"}`}
           onClick={() => setSort("new")}
@@ -66,7 +75,7 @@ export default function PostList({
           Top
         </Button>
       </div>
-      <div className="flex flex-col items-center justify-center gap-6">
+      <div className="flex flex-col items-center justify-center gap-6 px-6">
         {isLoading ? (
           <>
             {times(5, (index) => (
