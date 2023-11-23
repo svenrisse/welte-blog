@@ -47,7 +47,10 @@ export default function PostList({
             key={post?.node?.id}
             post={post as PostConnectionEdges}
           />
-          {index + 1 === sortedEdges.length && <Separator />}
+          {index + 1 ===
+            (hightlightFirst ? sortedEdges.length - 1 : sortedEdges.length) && (
+            <Separator />
+          )}
         </>
       );
     });
@@ -100,7 +103,7 @@ export default function PostList({
           Top
         </Button>
       </div>
-      <div className="flex flex-col items-center justify-center gap-6 px-6">
+      <div className="flex flex-col items-center justify-center">
         {isLoading ? (
           <>
             {times(5, (index) => (
