@@ -50,7 +50,7 @@ export default function RecommendationList({ take }: { take?: number }) {
   });
 
   return (
-    <div className="w-full px-6">
+    <div className="w-full px-2">
       {isInitialLoading ? (
         <>
           {times(take ? take : 5, (index) => (
