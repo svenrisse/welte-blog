@@ -34,7 +34,7 @@ export default function Page() {
     format(
       date!,
       "MMM d" +
-      (date!.getFullYear() == new Date().getFullYear() ? "" : ", YYYY"),
+        (date!.getFullYear() == new Date().getFullYear() ? "" : ", YYYY"),
     );
 
   return (
@@ -61,8 +61,8 @@ export default function Page() {
           <Separator />
         </div>
         <Image
-          src={data?.data.post.heroImage}
-          alt={data?.data.post.title}
+          src={data!.data.post.heroImage}
+          alt={data!.data.post.title}
           width={0}
           height={0}
           sizes="100vw"
