@@ -36,7 +36,7 @@ export default function PostPreview({ post }: { post: PostConnectionEdges }) {
           </div>
         </div>
         <div className="pt-6">
-          <PostActions />
+          <PostActions post={post} />
         </div>
       </Link>
     </div>

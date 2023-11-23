@@ -2,12 +2,14 @@ import { Plus } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 import Link from "next/link";
+import { signIn, useSession } from "next-auth/react";
 
 export default function Header({
   active,
 }: {
   active: "home" | "archive" | "about";
 }) {
+  const { status } = useSession();
   return (
     <header className="flex flex-col border-b">
       <div className="flex lg:justify-between">
@@ -21,9 +23,8 @@ export default function Header({
         <nav className="hidden justify-evenly px-2 pt-2 md:pt-0 lg:flex lg:w-1/3 lg:self-end">
           <Link
             href={"/"}
-            className={`${
-              active === "home" && "border-primary rounded-none border-b-2"
-            } w-1/3`}
+            className={`${active === "home" && "rounded-none border-b-2 border-primary"
+              } w-1/3`}
           >
             <Button variant={"ghost"} className="w-full">
               Home
@@ -31,9 +32,8 @@ export default function Header({
           </Link>
           <Link
             href={"/archive"}
-            className={`${
-              active === "archive" && "border-primary rounded-none border-b-2"
-            } w-1/3`}
+            className={`${active === "archive" && "rounded-none border-b-2 border-primary"
+              } w-1/3`}
           >
             <Button variant={"ghost"} className="w-full">
               Archive
@@ -41,29 +41,24 @@ export default function Header({
           </Link>
           <Link
             href={"/about"}
-            className={`${
-              active === "about" && "border-primary rounded-none border-b-2"
-            } w-1/3`}
+            className={`${active === "about" && "rounded-none border-b-2 border-primary"
+              } w-1/3`}
           >
             <Button variant={"ghost"} className="w-full">
               About
             </Button>
           </Link>
         </nav>
-        <div className="ml-auto flex items-center md:gap-4 md:px-6 lg:ml-0">
-          <Button>
-            <Plus className="mr-2 h-4 w-4" />
-            Subscribe
-          </Button>
-          <Button variant={"ghost"}>Sign in</Button>
+        <div className="ml-auto flex items-center px-4 md:gap-4 md:px-6 lg:ml-0">
+          {status}
+          <Button onClick={() => signIn()}>Sign in</Button>
         </div>
       </div>
       <nav className="flex justify-evenly px-2 pt-2 md:pt-0 lg:hidden">
         <Link
           href={"/"}
-          className={`${
-            active === "home" && "border-primary rounded-none border-b-2"
-          } w-1/3`}
+          className={`${active === "home" && "rounded-none border-b-2 border-primary"
+            } w-1/3`}
         >
           <Button variant={"ghost"} className="w-full">
             Home
@@ -71,9 +66,8 @@ export default function Header({
         </Link>
         <Link
           href={"/archive"}
-          className={`${
-            active === "archive" && "border-primary rounded-none border-b-2"
-          } w-1/3`}
+          className={`${active === "archive" && "rounded-none border-b-2 border-primary"
+            } w-1/3`}
         >
           <Button variant={"ghost"} className="w-full">
             Archive
@@ -81,9 +75,8 @@ export default function Header({
         </Link>
         <Link
           href={"/about"}
-          className={`${
-            active === "about" && "border-primary rounded-none border-b-2"
-          } w-1/3`}
+          className={`${active === "about" && "rounded-none border-b-2 border-primary"
+            } w-1/3`}
         >
           <Button variant={"ghost"} className="w-full">
             About

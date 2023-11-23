@@ -19,8 +19,7 @@ model Post {
   name      String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  Like Like[]
+  Like      Like[]
 
   @@index([name])
 }
@@ -31,6 +30,8 @@ model Like {
   postId Int
   user   User   @relation(fields: [userId], references: [id])
   userId String
+
+  @@unique([postId, userId])
 }
 
 // Necessary for Next auth
@@ -68,7 +69,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
-  Like          Like[]
+  Likes         Like[]
 }
 
 model VerificationToken {
