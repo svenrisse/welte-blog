@@ -8,6 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import PostPreviewSpinner from "./PostPreviewSpinner";
 import { times } from "lodash";
 import HeroPost from "./HeroPost";
+import { Skeleton } from "./ui/skeleton";
 
 export default function PostList({
   take,
@@ -52,12 +53,24 @@ export default function PostList({
 
   return (
     <div className={`${!hightlightFirst && "pt-6"}`}>
-      {hightlightFirst && sortedEdges && (
+      {hightlightFirst && (
         <div className="pb-4">
           {isLoading ? (
-            <div />
+            <>
+              <Skeleton className="h-60 w-full rounded-none" />
+              <div className="flex flex-col gap-4 px-6 pt-4">
+                <Skeleton className="h-[32px] w-10/12" />
+                <Skeleton className="h-[20px] w-full" />
+                <Skeleton className="h-[20px] w-8/12" />
+                <Skeleton className="h-[20px] w-2/12" />
+              </div>
+            </>
           ) : (
-            <HeroPost post={sortedEdges[0] as PostConnectionEdges} />
+            <>
+              {sortedEdges && (
+                <HeroPost post={sortedEdges[0] as PostConnectionEdges} />
+              )}
+            </>
           )}
         </div>
       )}

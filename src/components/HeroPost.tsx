@@ -23,7 +23,7 @@ export default function HeroPost({ post }: { post: PostConnectionEdges }) {
             width={0}
             height={0}
             sizes="100vw"
-            className="h-60 w-[100vw]"
+            className="h-60 w-full"
           />
         </div>
         <div className="flex flex-col gap-4 px-6">
