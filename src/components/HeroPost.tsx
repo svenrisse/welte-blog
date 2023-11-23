@@ -14,7 +14,7 @@ export default function HeroPost({ post }: { post: PostConnectionEdges }) {
   );
 
   return (
-    <div className="flex w-full flex-col hover:bg-primary-foreground">
+    <div className="w-full hover:bg-primary-foreground">
       <Link href={`/blog/${post?.node?._sys.filename}`}>
         <div className="">
           <Image
@@ -26,7 +26,7 @@ export default function HeroPost({ post }: { post: PostConnectionEdges }) {
             className="h-60 w-full"
           />
         </div>
-        <div className="flex flex-col gap-4 px-6">
+        <div className="flex flex-col gap-4 px-6 pt-4">
           <h2 className="text-2xl font-semibold">{post?.node?.title}</h2>
           <p className="text-sm text-gray-500">{post?.node?.description}</p>
           <span className="text-sm text-gray-500">{formattedDate}</span>

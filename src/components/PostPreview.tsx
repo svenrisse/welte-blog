@@ -18,8 +18,8 @@ export default function PostPreview({ post }: { post: PostConnectionEdges }) {
     <div className="flex w-full flex-col hover:bg-primary-foreground">
       <Link href={`/blog/${post?.node?._sys.filename}`}>
         <div className="flex justify-between">
-          <div className="flex flex-col gap-4">
-            <h2 className="text-lg font-semibold">{post?.node?.title}</h2>
+          <div className="flex w-8/12 flex-col gap-4">
+            <h2 className="font-semibold">{post?.node?.title}</h2>
             <p className="text-sm text-gray-500">{post?.node?.description}</p>
             <span className="text-sm text-gray-500">{formattedDate}</span>
           </div>
