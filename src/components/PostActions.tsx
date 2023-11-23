@@ -3,7 +3,6 @@
 import { Heart, Loader2, MessageCircle, Share } from "lucide-react";
 import { Button } from "./ui/button";
 import { api } from "~/utils/api";
-import { util } from "zod";
 
 export default function PostActions({ postName }: { postName: string }) {
   const utils = api.useUtils();

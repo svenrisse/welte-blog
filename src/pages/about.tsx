@@ -21,7 +21,7 @@ export default function About() {
       <Header active="about" />
       <main className="flex flex-col items-center justify-center">
         <div className="flex w-full flex-col items-center justify-center px-4 py-8">
-          {isFetching ? (
+          {isInitialLoading ? (
             <div className="w-full py-10">
               <Skeleton className="h-10 w-10/12 rounded-full" />
               <div className="flex flex-col gap-4 py-8">
