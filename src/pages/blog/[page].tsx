@@ -57,7 +57,7 @@ export default function Page() {
         </div>
         <div className="flex w-full flex-col gap-2">
           <Separator />
-          <PostActions postName={slug!} />
+          <PostActions postName={slug ? slug : ""} />
           <Separator />
         </div>
         <Image
