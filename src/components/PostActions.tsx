@@ -5,7 +5,7 @@ import { Button } from "./ui/button";
 import { api } from "~/utils/api";
 
 export default function PostActions({ postName }: { postName: string }) {
-  const { data, isLoading } = api.post.getLikes.useQuery({
+  const { data, isInitialLoading } = api.post.getLikes.useQuery({
     postName: postName,
   });
   const { mutateAsync } = api.post.likePost.useMutation({
@@ -27,7 +27,7 @@ export default function PostActions({ postName }: { postName: string }) {
           size={"icon"}
           onClick={() => mutateAsync({ postName: postName })}
         >
-          {isLoading ? (
+          {isInitialLoading ? (
             <Loader2 className="animate-spin" />
           ) : (
             <>

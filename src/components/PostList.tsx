@@ -20,7 +20,7 @@ export default function PostList({
 }) {
   const [sort, setSort] = useState<"new" | "top">("new");
 
-  const { data, isLoading } = useQuery({
+  const { data, isInitialLoading } = useQuery({
     queryKey: ["posts"],
     refetchOnWindowFocus: false,
     queryFn: async () => {
@@ -59,7 +59,7 @@ export default function PostList({
     <div className={`${!hightlightFirst && "pt-6"}`}>
       {hightlightFirst && (
         <div className="pb-4">
-          {isLoading ? (
+          {isInitialLoading ? (
             <>
               <Skeleton className="h-60 w-full rounded-none" />
               <div className="flex flex-col gap-4 px-6 pt-4">
@@ -104,7 +104,7 @@ export default function PostList({
         </Button>
       </div>
       <div className="flex flex-col items-center justify-center">
-        {isLoading ? (
+        {isInitialLoading ? (
           <>
             {times(5, (index) => (
               <>
