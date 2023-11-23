@@ -5,6 +5,7 @@ import { Button } from "./ui/button";
 import { Heart, MessageCircle, Share } from "lucide-react";
 import format from "date-fns/format";
 import { parseISO } from "date-fns";
+import PostActions from "./PostActions";
 
 export default function HeroPost({ post }: { post: PostConnectionEdges }) {
   const date = parseISO(post.node!.createdAt!);
@@ -31,16 +32,8 @@ export default function HeroPost({ post }: { post: PostConnectionEdges }) {
           <p className="text-sm text-gray-500">{post?.node?.description}</p>
           <span className="text-sm text-gray-500">{formattedDate}</span>
         </div>
-        <div className="flex w-full justify-between px-6 pt-4">
-          <Button variant={"ghost"} size={"icon"}>
-            <Heart />
-          </Button>
-          <Button variant={"ghost"} size={"icon"}>
-            <MessageCircle />
-          </Button>
-          <Button variant={"ghost"} size={"icon"}>
-            <Share />
-          </Button>
+        <div className="px-6 pt-2">
+          <PostActions />
         </div>
       </Link>
     </div>

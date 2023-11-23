@@ -9,6 +9,8 @@ import { AvatarImage } from "~/components/ui/avatar";
 import { AvatarFallback } from "~/components/ui/avatar";
 import parseISO from "date-fns/parseISO";
 import format from "date-fns/format";
+import { Separator } from "~/components/ui/separator";
+import PostActions from "~/components/PostActions";
 
 export default function Page() {
   const router = useRouter();
@@ -25,7 +27,7 @@ export default function Page() {
     },
   });
 
-  const date = parseISO(data!.data.post.createdAt!);
+  const date = parseISO(data?.data.post.createdAt && data.data.post.createdAt);
 
   const formattedDate = format(
     date,
@@ -35,7 +37,7 @@ export default function Page() {
   return (
     <>
       <Header active="archive" />
-      <main className="flex flex-col items-center justify-center gap-8 px-6 py-8">
+      <main className="flex flex-col items-center justify-center gap-8 px-6 py-6">
         <div className="flex flex-col gap-4">
           <h1 className="text-3xl font-bold">{data?.data.post.title}</h1>
           <p className="text-gray-500">{data?.data.post.description}</p>
@@ -50,6 +52,9 @@ export default function Page() {
             </div>
           </div>
         </div>
+        <Separator />
+        <PostActions />
+        <Separator />
         <Image
           src={data?.data.post.heroImage}
           alt={data?.data.post.title}

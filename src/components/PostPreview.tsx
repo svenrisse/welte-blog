@@ -5,6 +5,7 @@ import format from "date-fns/format";
 import Image from "next/image";
 import { Heart, MessageCircle, Share } from "lucide-react";
 import { Button } from "./ui/button";
+import PostActions from "./PostActions";
 
 export default function PostPreview({ post }: { post: PostConnectionEdges }) {
   const date = parseISO(post.node!.createdAt!);
@@ -34,16 +35,8 @@ export default function PostPreview({ post }: { post: PostConnectionEdges }) {
             />
           </div>
         </div>
-        <div className="flex w-full justify-between px-1 pt-6">
-          <Button variant={"ghost"} size={"icon"}>
-            <Heart />
-          </Button>
-          <Button variant={"ghost"} size={"icon"}>
-            <MessageCircle />
-          </Button>
-          <Button variant={"ghost"} size={"icon"}>
-            <Share />
-          </Button>
+        <div className="pt-6">
+          <PostActions />
         </div>
       </Link>
     </div>
