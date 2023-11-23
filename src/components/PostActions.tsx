@@ -3,14 +3,19 @@
 import { Heart, Loader2, MessageCircle, Share } from "lucide-react";
 import { Button } from "./ui/button";
 import { api } from "~/utils/api";
+import { util } from "zod";
 
 export default function PostActions({ postName }: { postName: string }) {
-  const { data, isInitialLoading } = api.post.getLikes.useQuery({
-    postName: postName,
-  });
-  const { mutateAsync } = api.post.likePost.useMutation({
+  const utils = api.useUtils();
+  const { data, isInitialLoading } = api.post.getLikes.useQuery(
+    {
+      postName: postName,
+    },
+    {},
+  );
+  const { mutateAsync, isLoading } = api.post.likePost.useMutation({
     onSuccess() {
-      alert("succes");
+      void utils.post.getLikes.invalidate({ postName: postName });
     },
     onError() {
       alert("error");

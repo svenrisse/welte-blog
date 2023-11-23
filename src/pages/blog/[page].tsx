@@ -18,7 +18,6 @@ export default function Page() {
 
   const { data } = useQuery({
     queryKey: ["Posts", slug],
-    refetchOnWindowFocus: false,
     queryFn: async () => {
       const response = await client.queries.post({
         relativePath: `${slug}.md`,

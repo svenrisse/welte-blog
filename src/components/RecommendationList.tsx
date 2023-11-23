@@ -15,7 +15,6 @@ type response = {
 export default function RecommendationList({ take }: { take?: number }) {
   const { data, isInitialLoading } = useQuery({
     queryKey: ["recs"],
-    refetchOnWindowFocus: false,
     queryFn: async (): Promise<response> => {
       const response = await client.request({
         query: `{
