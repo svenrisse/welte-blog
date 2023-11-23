@@ -9,6 +9,7 @@ import PostPreviewSpinner from "./PostPreviewSpinner";
 import { times } from "lodash";
 import HeroPost from "./HeroPost";
 import { Skeleton } from "./ui/skeleton";
+import { Heart, MessageCircle, Share } from "lucide-react";
 
 export default function PostList({
   take,
@@ -63,6 +64,17 @@ export default function PostList({
                 <Skeleton className="h-[20px] w-full" />
                 <Skeleton className="h-[20px] w-8/12" />
                 <Skeleton className="h-[20px] w-2/12" />
+              </div>
+              <div className="flex w-full justify-between px-6 pt-4">
+                <Button variant={"ghost"} size={"icon"}>
+                  <Heart />
+                </Button>
+                <Button variant={"ghost"} size={"icon"}>
+                  <MessageCircle />
+                </Button>
+                <Button variant={"ghost"} size={"icon"}>
+                  <Share />
+                </Button>
               </div>
             </>
           ) : (
