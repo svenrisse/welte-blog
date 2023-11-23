@@ -11,7 +11,6 @@ import parseISO from "date-fns/parseISO";
 import format from "date-fns/format";
 import { Separator } from "~/components/ui/separator";
 import PostActions from "~/components/PostActions";
-import { PostConnectionEdges } from "tina/__generated__/types";
 
 export default function Page() {
   const router = useRouter();
@@ -58,7 +57,7 @@ export default function Page() {
         </div>
         <div className="flex w-full flex-col gap-2">
           <Separator />
-          <PostActions post={data?.data.post} />
+          <PostActions postName={slug!} />
           <Separator />
         </div>
         <Image

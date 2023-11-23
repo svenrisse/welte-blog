@@ -29,11 +29,21 @@ export const postRouter = createTRPCRouter({
         },
       });
     }),
-  hello: publicProcedure
-    .input(z.object({ text: z.string() }))
-    .query(({ input }) => {
-      return {
-        greeting: `Hello ${input.text}`,
-      };
+  getLikes: publicProcedure
+    .input(z.object({ postName: z.string() }))
+    .query(({ ctx, input }) => {
+      return ctx.db.post.findUnique({
+        where: {
+          name: input.postName,
+        },
+        include: {
+          Like: {
+            where: {
+              userId: ctx.session?.user.id,
+            },
+          },
+          _count: true,
+        },
+      });
     }),
 });

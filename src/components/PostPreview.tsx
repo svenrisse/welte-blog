@@ -3,8 +3,6 @@ import Link from "next/link";
 import { type PostConnectionEdges } from "tina/__generated__/types";
 import format from "date-fns/format";
 import Image from "next/image";
-import { Heart, MessageCircle, Share } from "lucide-react";
-import { Button } from "./ui/button";
 import PostActions from "./PostActions";
 
 export default function PostPreview({ post }: { post: PostConnectionEdges }) {
@@ -35,10 +33,10 @@ export default function PostPreview({ post }: { post: PostConnectionEdges }) {
             />
           </div>
         </div>
-        <div className="pt-6">
-          <PostActions post={post} />
-        </div>
       </Link>
+      <div className="pt-6">
+        <PostActions postName={post.node!._sys.filename} />
+      </div>
     </div>
   );
 }

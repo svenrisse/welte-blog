@@ -1,8 +1,6 @@
 import { type PostConnectionEdges } from "tina/__generated__/types";
 import Link from "next/link";
 import Image from "next/image";
-import { Button } from "./ui/button";
-import { Heart, MessageCircle, Share } from "lucide-react";
 import format from "date-fns/format";
 import { parseISO } from "date-fns";
 import PostActions from "./PostActions";
@@ -33,7 +31,7 @@ export default function HeroPost({ post }: { post: PostConnectionEdges }) {
           <span className="text-sm text-gray-500">{formattedDate}</span>
         </div>
         <div className="px-6 pt-4">
-          <PostActions />
+          <PostActions postName={post.node!._sys.filename} />
         </div>
       </Link>
     </div>
