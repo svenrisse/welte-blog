@@ -15,7 +15,7 @@ export default function PostPreview({ post }: { post: PostConnectionEdges }) {
   );
 
   return (
-    <div className="flex w-full flex-col hover:bg-primary-foreground">
+    <div className="flex w-full flex-col">
       <Link href={`/blog/${post?.node?._sys.filename}`}>
         <div className="flex justify-between">
           <div className="flex w-8/12 flex-col gap-4">

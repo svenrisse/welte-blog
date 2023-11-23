@@ -14,7 +14,7 @@ export default function HeroPost({ post }: { post: PostConnectionEdges }) {
   );
 
   return (
-    <div className="w-full hover:bg-primary-foreground">
+    <div className="w-full">
       <Link href={`/blog/${post?.node?._sys.filename}`}>
         <div className="">
           <Image
