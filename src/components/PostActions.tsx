@@ -3,8 +3,10 @@
 import { Heart, Loader2, MessageCircle, Share } from "lucide-react";
 import { Button } from "./ui/button";
 import { api } from "~/utils/api";
+import { useSession } from "next-auth/react";
 
 export default function PostActions({ postName }: { postName: string }) {
+  const { data: session } = useSession();
   const utils = api.useUtils();
   const { data, isInitialLoading } = api.post.getLikes.useQuery(
     {
@@ -12,7 +14,16 @@ export default function PostActions({ postName }: { postName: string }) {
     },
     {},
   );
-  const { mutateAsync, isLoading } = api.post.likePost.useMutation({
+  const { mutateAsync: likeMutation } = api.post.likePost.useMutation({
+    onSuccess() {
+      void utils.post.getLikes.invalidate({ postName: postName });
+    },
+    onError() {
+      alert("error");
+    },
+  });
+
+  const { mutateAsync: unlikeMutation } = api.post.unlikePost.useMutation({
     onSuccess() {
       void utils.post.getLikes.invalidate({ postName: postName });
     },
@@ -23,13 +34,31 @@ export default function PostActions({ postName }: { postName: string }) {
 
   const hasLiked = data && data.Like.length > 0;
 
+  data?.Like[0]?.id;
+
+  function handleLikeClick() {
+    if (!session) {
+      return;
+    }
+
+    if (hasLiked) {
+      void unlikeMutation({
+        postId: data.id,
+      });
+      return;
+    }
+
+    void likeMutation({
+      postName: postName,
+    });
+  }
   return (
     <div className="flex w-full justify-between px-1">
       <div className="flex items-center">
         <Button
           variant={"ghost"}
           size={"icon"}
-          onClick={() => mutateAsync({ postName: postName })}
+          onClick={() => handleLikeClick()}
         >
           {isInitialLoading ? (
             <Loader2 className="animate-spin" />

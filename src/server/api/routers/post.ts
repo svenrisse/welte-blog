@@ -14,7 +14,17 @@ export const postRouter = createTRPCRouter({
         where: {
           name: input.postName,
         },
-        update: {},
+        update: {
+          Like: {
+            create: {
+              user: {
+                connect: {
+                  id: ctx.session.user.id,
+                },
+              },
+            },
+          },
+        },
         create: {
           name: input.postName,
           Like: {
@@ -25,6 +35,18 @@ export const postRouter = createTRPCRouter({
                 },
               },
             },
+          },
+        },
+      });
+    }),
+  unlikePost: protectedProcedure
+    .input(z.object({ postId: z.number() }))
+    .mutation((args) => {
+      return args.ctx.db.like.delete({
+        where: {
+          postId_userId: {
+            postId: args.input.postId,
+            userId: args.ctx.session.user.id,
           },
         },
       });
