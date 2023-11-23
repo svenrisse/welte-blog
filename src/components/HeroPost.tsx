@@ -30,10 +30,10 @@ export default function HeroPost({ post }: { post: PostConnectionEdges }) {
           <p className="text-sm text-gray-500">{post?.node?.description}</p>
           <span className="text-sm text-gray-500">{formattedDate}</span>
         </div>
-        <div className="px-6 pt-4">
-          <PostActions postName={post.node!._sys.filename} />
-        </div>
       </Link>
+      <div className="px-6 pt-4">
+        <PostActions postName={post.node!._sys.filename} />
+      </div>
     </div>
   );
 }
