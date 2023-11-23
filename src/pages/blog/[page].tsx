@@ -27,17 +27,20 @@ export default function Page() {
     },
   });
 
-  const date = parseISO(data?.data.post.createdAt && data.data.post.createdAt);
+  const date = data && parseISO(data.data.post.createdAt!);
 
-  const formattedDate = format(
-    date,
-    "MMM d" + (date.getFullYear() == new Date().getFullYear() ? "" : ", YYYY"),
-  );
+  const formattedDate =
+    data &&
+    format(
+      date!,
+      "MMM d" +
+        (date!.getFullYear() == new Date().getFullYear() ? "" : ", YYYY"),
+    );
 
   return (
     <>
       <Header active="archive" />
-      <main className="flex flex-col items-center justify-center gap-8 px-6 py-6">
+      <main className="flex flex-col items-center justify-center gap-6 px-6 py-6">
         <div className="flex flex-col gap-4">
           <h1 className="text-3xl font-bold">{data?.data.post.title}</h1>
           <p className="text-gray-500">{data?.data.post.description}</p>
@@ -52,16 +55,18 @@ export default function Page() {
             </div>
           </div>
         </div>
-        <Separator />
-        <PostActions />
-        <Separator />
+        <div className="flex w-full flex-col gap-2">
+          <Separator />
+          <PostActions />
+          <Separator />
+        </div>
         <Image
           src={data?.data.post.heroImage}
           alt={data?.data.post.title}
           width={0}
           height={0}
           sizes="100vw"
-          className="w-full rounded-md"
+          className="w-full rounded-lg"
         />
         <div className="prose">
           {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}
