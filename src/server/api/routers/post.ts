@@ -5,7 +5,6 @@ import {
   protectedProcedure,
   publicProcedure,
 } from "~/server/api/trpc";
-import client from "tina/__generated__/client";
 
 export const postRouter = createTRPCRouter({
   hello: publicProcedure
@@ -14,5 +13,20 @@ export const postRouter = createTRPCRouter({
       return {
         greeting: `Hello ${input.text}`,
       };
+    }),
+
+  likePost: protectedProcedure
+    .input(z.object({ postName: z.string() }))
+    .mutation((opts) => {
+      return opts.ctx.db.post.upsert({
+        where: {
+          name: opts.input.postName,
+        },
+        update: { name: opts.input.postName },
+        create: { name: opts.input.postName },
+        select: {
+          Like: {},
+        },
+      });
     }),
 });
