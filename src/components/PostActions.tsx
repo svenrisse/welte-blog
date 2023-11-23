@@ -21,7 +21,7 @@ export default function PostActions({ postName }: { postName: string }) {
     },
   });
 
-  const hasLiked = data?.Like.length;
+  const hasLiked = data && data.Like.length > 0;
 
   return (
     <div className="flex w-full justify-between px-1">
