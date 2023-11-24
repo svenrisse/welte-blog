@@ -36,6 +36,7 @@
     "lucide-react": "^0.292.0",
     "next": "^14.0.0",
     "next-auth": "^4.23.0",
+    "next-themes": "^0.2.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "superjson": "^1.13.1",
