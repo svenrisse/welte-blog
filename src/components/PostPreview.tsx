@@ -4,6 +4,8 @@ import { type PostConnectionEdges } from "tina/__generated__/types";
 import format from "date-fns/format";
 import Image from "next/image";
 import PostActions from "./PostActions";
+import { badgeVariants } from "./ui/badge";
+import { times } from "lodash";
 
 export default function PostPreview({ post }: { post: PostConnectionEdges }) {
   const date = parseISO(post.node!.createdAt!);
@@ -34,7 +36,27 @@ export default function PostPreview({ post }: { post: PostConnectionEdges }) {
           </div>
         </div>
       </Link>
-      <div className="pt-6">
+      <div className="flex gap-2 pb-1 pt-4">
+        {post.node?.tags?.slice(0, 2).map((tag) => {
+          return (
+            <Link
+              className={badgeVariants({ variant: "secondary" })}
+              href={"/"}
+              key={post.node?.id}
+            >
+              {tag}
+            </Link>
+          );
+        })}
+        <Link className={badgeVariants({ variant: "outline" })} href={"/"}>
+          {post.node?.tags?.slice(2).length ? (
+            <>{post.node.tags.slice(2).length} more</>
+          ) : (
+            <>No tags</>
+          )}
+        </Link>
+      </div>
+      <div className="">
         <PostActions postName={post.node!._sys.filename} />
       </div>
     </div>
