@@ -39,7 +39,19 @@ export const postRouter = createTRPCRouter({
         },
       });
     }),
-  commentPost: protectedProcedure
+  unlikePost: protectedProcedure
+    .input(z.object({ postId: z.number() }))
+    .mutation((args) => {
+      return args.ctx.db.like.delete({
+        where: {
+          postId_userId: {
+            postId: args.input.postId,
+            userId: args.ctx.session.user.id,
+          },
+        },
+      });
+    }),
+  addComment: protectedProcedure
     .input(z.object({ postName: z.string(), text: z.string() }))
     .mutation(({ ctx, input }) => {
       return ctx.db.post.upsert({
@@ -73,19 +85,16 @@ export const postRouter = createTRPCRouter({
         },
       });
     }),
-  unlikePost: protectedProcedure
-    .input(z.object({ postId: z.number() }))
-    .mutation((args) => {
-      return args.ctx.db.like.delete({
+  deleteComment: protectedProcedure
+    .input(z.object({ commentId: z.number() }))
+    .mutation(({ ctx, input }) => {
+      return ctx.db.comment.delete({
         where: {
-          postId_userId: {
-            postId: args.input.postId,
-            userId: args.ctx.session.user.id,
-          },
+          id: input.commentId,
         },
       });
     }),
-  getLikes: publicProcedure
+  getPost: publicProcedure
     .input(z.object({ postName: z.string() }))
     .query(({ ctx, input }) => {
       return ctx.db.post.findUnique({

@@ -8,7 +8,7 @@ import { useSession } from "next-auth/react";
 export default function PostActions({ postName }: { postName: string }) {
   const { data: session } = useSession();
   const utils = api.useUtils();
-  const { data, isInitialLoading } = api.post.getLikes.useQuery(
+  const { data, isInitialLoading } = api.post.getPost.useQuery(
     {
       postName: postName,
     },
@@ -16,7 +16,7 @@ export default function PostActions({ postName }: { postName: string }) {
   );
   const { mutateAsync: likeMutation } = api.post.likePost.useMutation({
     onSuccess() {
-      void utils.post.getLikes.invalidate({ postName: postName });
+      void utils.post.getPost.invalidate({ postName: postName });
     },
     onError() {
       alert("error");
@@ -25,7 +25,7 @@ export default function PostActions({ postName }: { postName: string }) {
 
   const { mutateAsync: unlikeMutation } = api.post.unlikePost.useMutation({
     onSuccess() {
-      void utils.post.getLikes.invalidate({ postName: postName });
+      void utils.post.getPost.invalidate({ postName: postName });
     },
     onError() {
       alert("error");
