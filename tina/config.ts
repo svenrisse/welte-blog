@@ -91,6 +91,12 @@ export default defineConfig({
             isBody: true,
           },
           {
+            type: "string",
+            name: "tags",
+            label: "Tags",
+            list: true,
+          },
+          {
             type: "datetime",
             name: "createdAt",
             label: "Created at (no need to touch)",
@@ -122,7 +128,7 @@ export default defineConfig({
             type: "image",
             name: "recImage",
             label: "Image",
-            required: true
+            required: true,
           },
           {
             type: "string",
