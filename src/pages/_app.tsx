@@ -5,6 +5,7 @@ import { type AppType } from "next/app";
 import { Inter } from "next/font/google";
 import { api } from "~/utils/api";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { ThemeProvider } from "~/components/ThemeProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -18,9 +19,15 @@ const MyApp: AppType<{ session: Session | null }> = ({
   return (
     <>
       <SessionProvider session={session}>
-        <main className={`${inter.variable} font-sans`}>
-          <Component {...pageProps} />
-        </main>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          disableTransitionOnChange
+        >
+          <main className={`${inter.variable} font-sans`}>
+            <Component {...pageProps} />
+          </main>
+        </ThemeProvider>
       </SessionProvider>
 
       <ReactQueryDevtools />
