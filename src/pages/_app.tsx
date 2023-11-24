@@ -21,7 +21,8 @@ const MyApp: AppType<{ session: Session | null }> = ({
       <SessionProvider session={session}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
+          defaultTheme="system"
+          enableSystem
           disableTransitionOnChange
         >
           <main className={`${inter.variable} font-sans`}>
