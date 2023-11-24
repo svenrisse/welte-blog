@@ -16,7 +16,10 @@ export default function PostBadges({ post }: { post: PostConnectionEdges }) {
           </Link>
         );
       })}
-      <Link className={badgeVariants({ variant: "outline" })} href={"/"}>
+      <Link
+        className={badgeVariants({ variant: "outline" })}
+        href={`/blog/${post?.node?._sys.filename}`}
+      >
         {post.node?.tags?.slice(2).length ? (
           <>{post.node.tags.slice(2).length} more</>
         ) : (
