@@ -39,6 +39,40 @@ export const postRouter = createTRPCRouter({
         },
       });
     }),
+  commentPost: protectedProcedure
+    .input(z.object({ postName: z.string(), text: z.string() }))
+    .mutation(({ ctx, input }) => {
+      return ctx.db.post.upsert({
+        where: {
+          name: input.postName,
+        },
+        update: {
+          Comment: {
+            create: {
+              text: input.text,
+              user: {
+                connect: {
+                  id: ctx.session.user.id,
+                },
+              },
+            },
+          },
+        },
+        create: {
+          name: input.postName,
+          Comment: {
+            create: {
+              text: input.text,
+              user: {
+                connect: {
+                  id: ctx.session.user.id,
+                },
+              },
+            },
+          },
+        },
+      });
+    }),
   unlikePost: protectedProcedure
     .input(z.object({ postId: z.number() }))
     .mutation((args) => {
