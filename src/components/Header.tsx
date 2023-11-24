@@ -3,6 +3,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
+import { UserDropDown } from "./UserDropdown";
 
 export default function Header({
   active,
@@ -56,9 +57,7 @@ export default function Header({
           {status === "unauthenticated" ? (
             <Button onClick={() => signIn()}>Sign in</Button>
           ) : (
-            <Button>
-              <User />
-            </Button>
+            <UserDropDown />
           )}
         </div>
       </div>
