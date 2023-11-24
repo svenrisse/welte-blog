@@ -15,11 +15,12 @@ datasource db {
 }
 
 model Post {
-  id        Int      @id @default(autoincrement())
-  name      String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
   Like      Like[]
+  Comment   Comment[]
 
   @@index([name])
 }
@@ -32,6 +33,15 @@ model Like {
   userId String
 
   @@unique([postId, userId])
+}
+
+model Comment {
+  id     Int    @id @default(autoincrement())
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId Int
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+  text   String
 }
 
 // Necessary for Next auth
@@ -70,6 +80,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   Likes         Like[]
+  Comment       Comment[]
 }
 
 model VerificationToken {
