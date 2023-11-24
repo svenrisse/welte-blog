@@ -4,6 +4,7 @@ import { Button } from "./ui/button";
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { UserDropDown } from "./UserDropdown";
+import { ThemeToggle } from "./ThemeToggle";
 
 export default function Header({
   active,
@@ -53,7 +54,8 @@ export default function Header({
             </Button>
           </Link>
         </nav>
-        <div className="ml-auto flex items-center px-4 md:gap-4 md:px-6 lg:ml-0">
+        <div className="ml-auto flex items-center gap-2 px-4 md:gap-4 md:px-6 lg:ml-0">
+          <ThemeToggle />
           {status === "unauthenticated" ? (
             <Button onClick={() => signIn()}>Sign in</Button>
           ) : (
