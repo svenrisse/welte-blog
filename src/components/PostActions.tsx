@@ -64,7 +64,7 @@ export default function PostActions({ postName }: { postName: string }) {
             <Loader2 className="animate-spin" />
           ) : (
             <>
-              <Heart fill={`${hasLiked ? "red" : "white"}`} />
+              <Heart fill={`${hasLiked ? "red" : ""}`} />
               <span className="ml-2 font-mono">{data?._count.Like}</span>
             </>
           )}

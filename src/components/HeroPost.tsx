@@ -4,6 +4,7 @@ import Image from "next/image";
 import format from "date-fns/format";
 import { parseISO } from "date-fns";
 import PostActions from "./PostActions";
+import PostBadges from "./PostBadges";
 
 export default function HeroPost({ post }: { post: PostConnectionEdges }) {
   const date = parseISO(post.node!.createdAt!);
@@ -15,7 +16,7 @@ export default function HeroPost({ post }: { post: PostConnectionEdges }) {
   return (
     <div className="w-full">
       <Link href={`/blog/${post?.node?._sys.filename}`}>
-        <div className="">
+        <div>
           <Image
             src={post.node!.heroImage}
             alt={post.node!.title}
@@ -31,6 +32,9 @@ export default function HeroPost({ post }: { post: PostConnectionEdges }) {
           <span className="text-sm text-gray-500">{formattedDate}</span>
         </div>
       </Link>
+      <div className="flex gap-2 px-6 pb-1 pt-4">
+        <PostBadges post={post} />
+      </div>
       <div className="px-6 pt-4">
         <PostActions postName={post.node!._sys.filename} />
       </div>
