@@ -36,7 +36,10 @@ export default function PostActions({ postName }: { postName: string }) {
 
   data?.Like[0]?.id;
 
-  function handleLikeClick() {
+  function handleLikeClick(event: React.SyntheticEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+
     if (!session) {
       return;
     }
@@ -58,7 +61,7 @@ export default function PostActions({ postName }: { postName: string }) {
         <Button
           variant={"ghost"}
           size={"icon"}
-          onClick={() => handleLikeClick()}
+          onClick={(event) => handleLikeClick(event)}
         >
           {isInitialLoading ? (
             <Loader2 className="animate-spin" />
