@@ -9,6 +9,9 @@ import PostPreviewSpinner from "./PostPreviewSpinner";
 import { times } from "lodash";
 import HeroPost from "./HeroPost";
 import { Skeleton } from "./ui/skeleton";
+import RecommendationList from "~/components/RecommendationList";
+import Link from "next/link";
+
 import { Heart, MessageCircle, Share } from "lucide-react";
 
 export default function PostList({
@@ -91,34 +94,48 @@ export default function PostList({
           )}
         </div>
       )}
-      <div className="flex gap-4 px-6 pb-4">
-        <Button
-          variant={`${sort === "new" ? "secondary" : "ghost"}`}
-          onClick={() => setSort("new")}
-        >
-          New
-        </Button>
-        <Button
-          variant={`${sort === "top" ? "secondary" : "ghost"}`}
-          onClick={() => setSort("top")}
-        >
-          Top
-        </Button>
-      </div>
-      <div className="flex flex-col items-center justify-center">
-        {isInitialLoading ? (
-          <>
-            {times(5, (index) => (
+      <div className="flex flex-col items-center">
+        <div className="w-full">
+          <div className="flex gap-4 px-6 pb-4">
+            <Button
+              variant={`${sort === "new" ? "secondary" : "ghost"}`}
+              onClick={() => setSort("new")}
+            >
+              New
+            </Button>
+            <Button
+              variant={`${sort === "top" ? "secondary" : "ghost"}`}
+              onClick={() => setSort("top")}
+            >
+              Top
+            </Button>
+          </div>
+          <div className="flex flex-col items-center justify-center">
+            {isInitialLoading ? (
               <>
-                <Separator />
-                <PostPreviewSpinner />
-                {index + 1 === 5 && <Separator />}
+                {times(5, (index) => (
+                  <>
+                    <Separator />
+                    <PostPreviewSpinner />
+                    {index + 1 === 5 && <Separator />}
+                  </>
+                ))}
               </>
-            ))}
-          </>
-        ) : (
-          <>{posts}</>
-        )}
+            ) : (
+              <>{posts}</>
+            )}
+          </div>
+        </div>
+        <div className="w-10/12 py-6">
+          <div className="flex justify-between pb-4">
+            <h2 className="font-bold">Recommendations</h2>
+            <Link href={"/recommendations"}>
+              <span className="hover:underline">View all</span>
+            </Link>
+          </div>
+          <RecommendationList take={3} />
+          <Separator />
+        </div>
       </div>
     </div>
   );

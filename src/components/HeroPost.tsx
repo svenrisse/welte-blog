@@ -27,7 +27,7 @@ export default function HeroPost({ post }: { post: PostConnectionEdges }) {
         className="h-60 w-full md:h-full md:w-6/12 md:rounded-xl"
       />
       <div className="flex flex-col md:w-6/12 md:items-center md:justify-center lg:px-8">
-        <div className="flex flex-col pt-4 md:px-6 md:pt-2 md:text-center lg:px-2">
+        <div className="flex flex-col px-6 pt-4 md:pt-2 md:text-center lg:px-2">
           <h2 className="text-2xl font-semibold lg:pb-2 lg:text-3xl">
             {post?.node?.title}
           </h2>
