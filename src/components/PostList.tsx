@@ -60,7 +60,7 @@ export default function PostList({
       className={`${!hightlightFirst && "pt-6"} flex flex-col lg:items-center`}
     >
       {hightlightFirst && (
-        <div className="pb-4 lg:w-8/12">
+        <div className="pb-4 lg:w-8/12 xl:w-6/12">
           {isInitialLoading ? (
             <>
               <Skeleton className="h-60 w-full rounded-none" />

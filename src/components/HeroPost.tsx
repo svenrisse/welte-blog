@@ -16,7 +16,7 @@ export default function HeroPost({ post }: { post: PostConnectionEdges }) {
   return (
     <Link
       href={`/blog/${post?.node?._sys.filename}`}
-      className="flex w-full flex-col md:flex-row md:items-stretch md:px-8 md:pb-2 md:pt-4"
+      className="flex w-full flex-col rounded-xl hover:bg-primary-foreground md:flex-row md:items-stretch md:px-8 md:py-4 lg:px-4"
     >
       <Image
         src={post.node!.heroImage}
