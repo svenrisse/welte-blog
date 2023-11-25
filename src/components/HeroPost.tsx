@@ -14,32 +14,33 @@ export default function HeroPost({ post }: { post: PostConnectionEdges }) {
   );
 
   return (
-    <Link href={`/blog/${post?.node?._sys.filename}`}>
-      <div className="flex w-full flex-col md:flex-row md:items-stretch md:px-8 md:pb-2 md:pt-4 lg:px-52">
-        <Image
-          src={post.node!.heroImage}
-          alt={post.node!.title}
-          width={0}
-          height={0}
-          sizes="100vw"
-          className="h-60 w-full md:h-full md:w-6/12 md:rounded-xl"
-        />
-        <div className="flex flex-col md:w-6/12 md:items-center md:justify-center lg:px-8">
-          <div className="flex flex-col px-6 pt-4 md:pt-2 md:text-center">
-            <h2 className="text-2xl font-semibold lg:pb-2 lg:text-3xl">
-              {post?.node?.title}
-            </h2>
-            <p className="py-4 text-sm text-gray-500 md:py-2 lg:pb-4 lg:text-base">
-              {post?.node?.description}
-            </p>
-            <span className="text-sm text-gray-500">{formattedDate}</span>
-          </div>
-          <div className="flex gap-2 px-6 py-4 md:py-2 lg:py-4">
-            <PostBadges post={post} />
-          </div>
-          <div className="flex justify-between px-6 md:justify-center md:gap-8">
-            <PostActions postName={post.node!._sys.filename} />
-          </div>
+    <Link
+      href={`/blog/${post?.node?._sys.filename}`}
+      className="flex w-full flex-col md:flex-row md:items-stretch md:px-8 md:pb-2 md:pt-4"
+    >
+      <Image
+        src={post.node!.heroImage}
+        alt={post.node!.title}
+        width={0}
+        height={0}
+        sizes="100vw"
+        className="h-60 w-full md:h-full md:w-6/12 md:rounded-xl"
+      />
+      <div className="flex flex-col md:w-6/12 md:items-center md:justify-center lg:px-8">
+        <div className="flex flex-col pt-4 md:px-6 md:pt-2 md:text-center lg:px-2">
+          <h2 className="text-2xl font-semibold lg:pb-2 lg:text-3xl">
+            {post?.node?.title}
+          </h2>
+          <p className="py-4 text-sm text-gray-500 md:py-2 lg:pb-2 lg:text-base">
+            {post?.node?.description}
+          </p>
+          <span className="text-sm text-gray-500">{formattedDate}</span>
+        </div>
+        <div className="flex gap-2 px-6 py-4 md:py-2 lg:py-3">
+          <PostBadges post={post} />
+        </div>
+        <div className="flex justify-between px-6 md:justify-center md:gap-8">
+          <PostActions postName={post.node!._sys.filename} />
         </div>
       </div>
     </Link>
