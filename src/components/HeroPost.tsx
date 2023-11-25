@@ -24,8 +24,8 @@ export default function HeroPost({ post }: { post: PostConnectionEdges }) {
           sizes="100vw"
           className="h-60 w-full md:h-full md:w-6/12 md:rounded-xl"
         />
-        <div className="flex flex-col md:w-6/12 md:justify-between lg:px-8">
-          <div className="flex flex-col px-6 pt-4 md:pt-4 lg:text-center">
+        <div className="flex flex-col md:w-6/12 md:items-center md:justify-center lg:px-8">
+          <div className="flex flex-col px-6 py-2 md:text-center">
             <h2 className="text-2xl font-semibold lg:text-3xl">
               {post?.node?.title}
             </h2>
@@ -37,7 +37,7 @@ export default function HeroPost({ post }: { post: PostConnectionEdges }) {
           <div className="flex gap-2 px-6 py-2">
             <PostBadges post={post} />
           </div>
-          <div className="px-6 md:pt-0">
+          <div className="flex justify-between px-6 md:justify-center md:gap-8">
             <PostActions postName={post.node!._sys.filename} />
           </div>
         </div>

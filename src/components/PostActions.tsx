@@ -53,7 +53,7 @@ export default function PostActions({ postName }: { postName: string }) {
     });
   }
   return (
-    <div className="flex w-full justify-between px-1">
+    <>
       <div className="flex items-center">
         <Button
           variant={"ghost"}
@@ -79,6 +79,6 @@ export default function PostActions({ postName }: { postName: string }) {
       <Button variant={"ghost"} size={"icon"}>
         <Share />
       </Button>
-    </div>
+    </>
   );
 }
