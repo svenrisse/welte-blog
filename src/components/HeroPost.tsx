@@ -15,7 +15,7 @@ export default function HeroPost({ post }: { post: PostConnectionEdges }) {
 
   return (
     <Link href={`/blog/${post?.node?._sys.filename}`}>
-      <div className="flex w-full flex-col md:flex-row md:items-center md:px-8 md:pb-2 md:pt-4">
+      <div className="flex w-full flex-col md:flex-row md:items-stretch md:px-8 md:pb-2 md:pt-4 lg:px-52">
         <Image
           src={post.node!.heroImage}
           alt={post.node!.title}
@@ -24,18 +24,20 @@ export default function HeroPost({ post }: { post: PostConnectionEdges }) {
           sizes="100vw"
           className="h-60 w-full md:h-full md:w-6/12 md:rounded-xl"
         />
-        <div className="md:h-full md:max-h-full md:w-6/12">
-          <div className="flex flex-col px-6 pt-4">
-            <h2 className="text-2xl font-semibold">{post?.node?.title}</h2>
-            <p className="pb-2 pt-4 text-sm text-gray-500">
+        <div className="flex flex-col md:w-6/12 md:justify-between lg:px-8">
+          <div className="flex flex-col px-6 pt-4 md:pt-4 lg:text-center">
+            <h2 className="text-2xl font-semibold lg:text-3xl">
+              {post?.node?.title}
+            </h2>
+            <p className="pb-2 pt-4 text-sm text-gray-500 md:pt-2 lg:text-base">
               {post?.node?.description}
             </p>
             <span className="text-sm text-gray-500">{formattedDate}</span>
           </div>
-          <div className="flex gap-2 px-6 pb-1 md:pt-2">
+          <div className="flex gap-2 px-6 py-2">
             <PostBadges post={post} />
           </div>
-          <div className="px-6 pt-4 md:pt-0">
+          <div className="px-6 md:pt-0">
             <PostActions postName={post.node!._sys.filename} />
           </div>
         </div>
