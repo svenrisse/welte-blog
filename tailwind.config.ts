@@ -13,7 +13,7 @@ module.exports = {
       md: "800px",
       lg: "1200px",
       xl: "1600px",
-      xxl: "2200px",
+      "2xl": "2200px",
     },
     extend: {
       fontFamily: {
