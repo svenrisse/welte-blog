@@ -14,11 +14,11 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header active="home" />
-      <main className="flex flex-col items-center justify-center">
+      <main className="flex w-screen flex-col items-center justify-center">
         <div className="w-full pb-6">
           <PostList take={8} hightlightFirst />
         </div>
-        <div className="w-full px-6 py-6">
+        <div className="w-10/12 py-6">
           <div className="flex justify-between pb-4">
             <h2 className="font-bold">Recommendations</h2>
             <Link href={"/recommendations"}>

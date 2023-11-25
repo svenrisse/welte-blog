@@ -25,16 +25,16 @@ export default function HeroPost({ post }: { post: PostConnectionEdges }) {
           className="h-60 w-full md:h-full md:w-6/12 md:rounded-xl"
         />
         <div className="flex flex-col md:w-6/12 md:items-center md:justify-center lg:px-8">
-          <div className="flex flex-col px-6 py-2 md:text-center">
+          <div className="flex flex-col px-6 pt-4 md:text-center">
             <h2 className="text-2xl font-semibold lg:text-3xl">
               {post?.node?.title}
             </h2>
-            <p className="pb-2 pt-4 text-sm text-gray-500 md:pt-2 lg:text-base">
+            <p className="py-4 text-sm text-gray-500 md:pt-2 lg:text-base">
               {post?.node?.description}
             </p>
             <span className="text-sm text-gray-500">{formattedDate}</span>
           </div>
-          <div className="flex gap-2 px-6 py-2">
+          <div className="flex gap-2 px-6 py-4">
             <PostBadges post={post} />
           </div>
           <div className="flex justify-between px-6 md:justify-center md:gap-8">

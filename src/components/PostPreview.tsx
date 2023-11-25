@@ -38,7 +38,7 @@ export default function PostPreview({ post }: { post: PostConnectionEdges }) {
       <div className="flex gap-2 pb-1 pt-4">
         <PostBadges post={post} />
       </div>
-      <div className="">
+      <div className="flex justify-between pt-2">
         <PostActions postName={post.node!._sys.filename} />
       </div>
     </div>
