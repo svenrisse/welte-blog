@@ -8,16 +8,12 @@ module.exports = {
     "./src/**/*.{ts,tsx}",
   ],
   theme: {
-    container: {
-      center: true,
-      padding: "2rem",
-      screens: {
-        sm: "375px",
-        md: "800px",
-        lg: "1200px",
-        xl: "1600px",
-        xxl: "2200px",
-      },
+    screens: {
+      sm: "375px",
+      md: "800px",
+      lg: "1200px",
+      xl: "1600px",
+      xxl: "2200px",
     },
     extend: {
       fontFamily: {
