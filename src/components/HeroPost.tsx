@@ -5,6 +5,9 @@ import format from "date-fns/format";
 import { parseISO } from "date-fns";
 import PostActions from "./PostActions";
 import PostBadges from "./PostBadges";
+import { TypographyH2 } from "./Typography/TypographyH2";
+import { TypographyH1 } from "./Typography/TypographyH1";
+import { TypographyMuted } from "./Typography/TypographyMuted";
 
 export default function HeroPost({ post }: { post: PostConnectionEdges }) {
   const date = parseISO(post.node!.createdAt!);
@@ -28,13 +31,11 @@ export default function HeroPost({ post }: { post: PostConnectionEdges }) {
       />
       <div className="flex flex-col md:w-6/12 md:items-center md:justify-center lg:px-8">
         <div className="flex flex-col px-6 pt-4 md:pt-2 md:text-center lg:px-2">
-          <h2 className="text-2xl font-semibold lg:pb-2 lg:text-3xl">
-            {post?.node?.title}
-          </h2>
-          <p className="py-4 text-sm text-gray-500 md:py-2 lg:pb-2 lg:text-base 2xl:py-6">
-            {post?.node?.description}
-          </p>
-          <span className="text-sm text-gray-500">{formattedDate}</span>
+          <TypographyH1>{post.node?.title}</TypographyH1>
+          <div className="py-4 md:py-2 lg:pb-2 2xl:py-6">
+            <TypographyMuted>{post.node?.description}</TypographyMuted>
+          </div>
+          <TypographyMuted>{formattedDate}</TypographyMuted>
         </div>
         <div className="flex gap-2 px-6 py-4 md:py-2 lg:py-3 2xl:py-6">
           <PostBadges post={post} />

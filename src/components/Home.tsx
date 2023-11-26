@@ -14,6 +14,8 @@ import Link from "next/link";
 import { Heart, MessageCircle, Share } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Input } from "./ui/input";
+import { TypographyH2 } from "./Typography/TypographyH2";
+import { TypographySmall } from "./Typography/TypographySmall";
 
 export default function Home({
   take,
@@ -140,10 +142,10 @@ export default function Home({
               </Button>
             </div>
           </div>
-          <div className="flex justify-between pb-4">
-            <h2 className="font-bold">Recommendations</h2>
-            <Link href={"/recommendations"}>
-              <span className="hover:underline">View all</span>
+          <div className="flex items-center justify-between pb-4">
+            <TypographyH2>Recommendations</TypographyH2>
+            <Link href={"/recommendations"} className="hover:underline">
+              <TypographySmall>View all</TypographySmall>
             </Link>
           </div>
           <RecommendationList take={3} />
