@@ -30,7 +30,7 @@ export default function PostPreview({ post }: { post: PostConnectionEdges }) {
               width={0}
               height={0}
               sizes="100vw"
-              className="h-20 w-20 rounded-xl"
+              className="h-20 w-20 rounded-xl md:h-28 md:w-28"
             />
           </div>
         </div>
