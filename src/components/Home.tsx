@@ -96,7 +96,7 @@ export default function Home({
         </div>
       )}
       <Separator />
-      <div className="flex flex-col items-center md:flex-row md:items-start md:justify-between md:gap-6 md:px-6 md:pt-4 lg:w-8/12 lg:gap-8 lg:px-4 ">
+      <div className="flex flex-col items-center md:flex-row md:items-start md:justify-between md:gap-6 md:px-6 md:pt-4 lg:w-8/12 lg:gap-8 lg:px-4 xl:w-6/12 xl:px-0">
         <div className="w-full md:w-7/12 lg:w-8/12">
           <div className="flex gap-4 px-6 pb-4">
             <Button
