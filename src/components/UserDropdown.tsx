@@ -20,6 +20,7 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { signOut } from "next-auth/react";
+import { TypographySmall } from "./Typography/TypographySmall";
 
 export function UserDropDown() {
   return (
@@ -35,32 +36,32 @@ export function UserDropDown() {
         <DropdownMenuGroup>
           <DropdownMenuItem>
             <Bookmark className="mr-2 h-4 w-4" />
-            <span>Bookmarks</span>
+            <TypographySmall>Bookmarks</TypographySmall>
           </DropdownMenuItem>
           <DropdownMenuItem>
             <Bell className="mr-2 h-4 w-4" />
-            <span>Notifications</span>
+            <TypographySmall>Notifications</TypographySmall>
           </DropdownMenuItem>
           <DropdownMenuItem>
             <Heart className="mr-2 h-4 w-4" />
-            <span>Liked Posts</span>
+            <TypographySmall>Liked Posts</TypographySmall>
           </DropdownMenuItem>
           <DropdownMenuItem>
             <MessageCircle className="mr-2 h-4 w-4" />
-            <span>Comments</span>
+            <TypographySmall>Comments</TypographySmall>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>
             <Settings className="mr-2 h-4 w-4" />
-            <span>Settings</span>
+            <TypographySmall>Settings</TypographySmall>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={() => void signOut()}>
           <LogOut className="mr-2 h-4 w-4" />
-          <span>Log out</span>
+          <TypographySmall>Log out</TypographySmall>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

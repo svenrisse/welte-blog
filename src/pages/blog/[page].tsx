@@ -11,6 +11,10 @@ import parseISO from "date-fns/parseISO";
 import format from "date-fns/format";
 import { Separator } from "~/components/ui/separator";
 import PostActions from "~/components/PostActions";
+import { TypographyH1 } from "~/components/Typography/TypographyH1";
+import { TypographyMuted } from "~/components/Typography/TypographyMuted";
+import { TypographyP } from "~/components/Typography/TypographyP";
+import { TypographySmall } from "~/components/Typography/TypographySmall";
 
 export default function Page() {
   const router = useRouter();
@@ -41,16 +45,18 @@ export default function Page() {
       <Header active="archive" />
       <main className="flex flex-col items-center justify-center gap-6 px-6 py-6">
         <div className="flex flex-col gap-4">
-          <h1 className="text-3xl font-bold">{data?.data.post.title}</h1>
-          <p className="text-gray-500">{data?.data.post.description}</p>
+          <TypographyH1>{data?.data.post.title}</TypographyH1>
+          <div className="text-muted-foreground">
+            <TypographyP>{data?.data.post.description}</TypographyP>
+          </div>
           <div className="flex gap-4 px-1">
             <Avatar>
               <AvatarImage src="https://github.com/shadcn.png" />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
             <div className="flex flex-col text-xs">
-              <span className="">Welte</span>
-              <span className="">{formattedDate}</span>
+              <TypographyMuted>Welte</TypographyMuted>
+              <TypographyMuted>{formattedDate}</TypographyMuted>
             </div>
           </div>
         </div>

@@ -4,6 +4,7 @@ import { Heart, Loader2, MessageCircle, Share } from "lucide-react";
 import { Button } from "./ui/button";
 import { api } from "~/utils/api";
 import { useSession } from "next-auth/react";
+import { TypographySmall } from "./Typography/TypographySmall";
 
 export default function PostActions({ postName }: { postName: string }) {
   const { data: session } = useSession();
@@ -68,16 +69,22 @@ export default function PostActions({ postName }: { postName: string }) {
           ) : (
             <>
               <Heart fill={`${hasLiked ? "red" : ""}`} />
-              <span className="ml-2 font-mono">{data?._count.Like}</span>
+              <div className="ml-2 font-mono">
+                <TypographySmall>{data?._count.Like}</TypographySmall>
+              </div>
             </>
           )}
         </Button>
       </div>
       <div className="flex items-center">
         <Button variant={"ghost"} size={"icon"}>
-          <MessageCircle />
+          <>
+            <MessageCircle />
+            <div className="ml-2 font-mono">
+              <TypographySmall>{data?._count.Comment}</TypographySmall>
+            </div>
+          </>
         </Button>
-        <span className="font-mono">0</span>
       </div>
       <Button variant={"ghost"} size={"icon"}>
         <Share />
