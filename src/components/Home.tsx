@@ -41,64 +41,57 @@ export default function Home({
     return 0;
   });
 
-  const posts = sortedEdges
-    ?.slice(hightlightFirst ? 1 : 0)
-    .map((post, index) => {
-      return (
-        <>
-          <Separator />
-          <PostPreview
-            key={post?.node?.id}
-            post={post as PostConnectionEdges}
-          />
-          {index + 1 ===
-            (hightlightFirst ? sortedEdges.length - 1 : sortedEdges.length) && (
-            <Separator />
-          )}
-        </>
-      );
-    });
+  const posts = sortedEdges?.slice(hightlightFirst ? 1 : 0).map((post) => {
+    return (
+      <>
+        <PostPreview key={post?.node?.id} post={post as PostConnectionEdges} />
+        <Separator />
+      </>
+    );
+  });
 
   return (
     <div
       className={`${!hightlightFirst && "pt-6"} flex flex-col lg:items-center`}
     >
       {hightlightFirst && (
-        <div className="pb-4 lg:w-8/12 xl:w-6/12">
-          {isInitialLoading ? (
-            <>
-              <Skeleton className="h-60 w-full rounded-none" />
-              <div className="flex flex-col gap-4 px-6 pt-4">
-                <Skeleton className="h-[32px] w-10/12" />
-                <Skeleton className="h-[20px] w-full" />
-                <Skeleton className="h-[20px] w-8/12" />
-                <Skeleton className="h-[20px] w-2/12" />
-              </div>
-              <div className="flex w-full justify-between px-6 pt-4">
-                <Button variant={"ghost"} size={"icon"}>
-                  <Heart />
-                </Button>
-                <Button variant={"ghost"} size={"icon"}>
-                  <MessageCircle />
-                </Button>
-                <Button variant={"ghost"} size={"icon"}>
-                  <Share />
-                </Button>
-              </div>
-            </>
-          ) : (
-            <>
-              {sortedEdges && (
-                <HeroPost post={sortedEdges[0] as PostConnectionEdges} />
-              )}
-            </>
-          )}
-        </div>
+        <>
+          <div className="pb-4 lg:w-8/12 xl:w-6/12">
+            {isInitialLoading ? (
+              <>
+                <Skeleton className="h-60 w-full rounded-none" />
+                <div className="flex flex-col gap-4 px-6 pt-4">
+                  <Skeleton className="h-[32px] w-10/12" />
+                  <Skeleton className="h-[20px] w-full" />
+                  <Skeleton className="h-[20px] w-8/12" />
+                  <Skeleton className="h-[20px] w-2/12" />
+                </div>
+                <div className="flex w-full justify-between px-6 pt-4">
+                  <Button variant={"ghost"} size={"icon"}>
+                    <Heart />
+                  </Button>
+                  <Button variant={"ghost"} size={"icon"}>
+                    <MessageCircle />
+                  </Button>
+                  <Button variant={"ghost"} size={"icon"}>
+                    <Share />
+                  </Button>
+                </div>
+              </>
+            ) : (
+              <>
+                {sortedEdges && (
+                  <HeroPost post={sortedEdges[0] as PostConnectionEdges} />
+                )}
+              </>
+            )}
+          </div>
+          <Separator />
+        </>
       )}
-      <Separator />
-      <div className="flex flex-col items-center md:flex-row md:items-start md:justify-between md:gap-6 md:px-6 md:pt-4 lg:w-8/12 lg:gap-8 lg:px-4 xl:w-6/12 xl:px-0">
+      <div className="flex flex-col items-center pt-4 md:flex-row md:items-start md:justify-between md:gap-6 md:px-6 lg:w-8/12 lg:gap-8 lg:px-4 xl:w-6/12 xl:px-0">
         <div className="w-full md:w-7/12 lg:w-8/12">
-          <div className="flex gap-4 px-6 pb-4">
+          <div className="flex gap-4 px-6 py-2">
             <Button
               variant={`${sort === "new" ? "secondary" : "ghost"}`}
               onClick={() => setSort("new")}
