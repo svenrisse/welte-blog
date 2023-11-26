@@ -96,7 +96,7 @@ export default function Home({
         </div>
       )}
       <Separator />
-      <div className="flex flex-col items-center md:flex-row md:items-start md:justify-between md:gap-8 md:px-6 md:pt-4">
+      <div className="flex flex-col items-center md:flex-row md:items-start md:justify-between md:gap-6 md:px-6 md:pt-4">
         <div className="w-full md:w-7/12">
           <div className="flex gap-4 px-6 pb-4">
             <Button
@@ -128,14 +128,24 @@ export default function Home({
             )}
           </div>
         </div>
-        <div className="w-10/12 py-6 md:w-5/12 md:py-0">
-          <div className="hidden md:flex md:flex-col">
+        <div className="w-10/12 py-6 md:w-4/12 md:py-0">
+          <div className="hidden md:flex md:flex-col md:gap-4 md:pb-8">
             <Avatar>
               <AvatarImage src="https://github.com/shadcn.png" />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
-            <Input type="email" placeholder="Email" />
-            <Button type="submit">Subscribe</Button>
+            <div>
+              <h3 className="font-bold">Weltpinion</h3>
+              <span className="text-sm text-gray-500">
+                Cringe-Posts and other interesting stuff
+              </span>
+            </div>
+            <div className="flex gap-4">
+              <Input type="email" placeholder="Email" />
+              <Button type="submit" disabled>
+                Subscribe
+              </Button>
+            </div>
           </div>
           <div className="flex justify-between pb-4">
             <h2 className="font-bold">Recommendations</h2>
