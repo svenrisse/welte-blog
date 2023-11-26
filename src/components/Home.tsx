@@ -11,10 +11,11 @@ import HeroPost from "./HeroPost";
 import { Skeleton } from "./ui/skeleton";
 import RecommendationList from "~/components/RecommendationList";
 import Link from "next/link";
-
 import { Heart, MessageCircle, Share } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Input } from "./ui/input";
 
-export default function PostList({
+export default function Home({
   take,
   hightlightFirst,
 }: {
@@ -94,8 +95,9 @@ export default function PostList({
           )}
         </div>
       )}
-      <div className="flex flex-col items-center">
-        <div className="w-full">
+      <Separator />
+      <div className="flex flex-col items-center md:flex-row md:items-start md:justify-between md:gap-8 md:px-6 md:pt-4">
+        <div className="w-full md:w-7/12">
           <div className="flex gap-4 px-6 pb-4">
             <Button
               variant={`${sort === "new" ? "secondary" : "ghost"}`}
@@ -126,7 +128,15 @@ export default function PostList({
             )}
           </div>
         </div>
-        <div className="w-10/12 py-6">
+        <div className="w-10/12 py-6 md:w-5/12 md:py-0">
+          <div className="hidden md:flex md:flex-col">
+            <Avatar>
+              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+            <Input type="email" placeholder="Email" />
+            <Button type="submit">Subscribe</Button>
+          </div>
           <div className="flex justify-between pb-4">
             <h2 className="font-bold">Recommendations</h2>
             <Link href={"/recommendations"}>
