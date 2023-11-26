@@ -96,8 +96,8 @@ export default function Home({
         </div>
       )}
       <Separator />
-      <div className="flex flex-col items-center md:flex-row md:items-start md:justify-between md:gap-6 md:px-6 md:pt-4">
-        <div className="w-full md:w-7/12">
+      <div className="flex flex-col items-center md:flex-row md:items-start md:justify-between md:gap-6 md:px-6 md:pt-4 lg:w-8/12 lg:gap-8 lg:px-4 ">
+        <div className="w-full md:w-7/12 lg:w-8/12">
           <div className="flex gap-4 px-6 pb-4">
             <Button
               variant={`${sort === "new" ? "secondary" : "ghost"}`}
@@ -128,7 +128,7 @@ export default function Home({
             )}
           </div>
         </div>
-        <div className="w-10/12 py-6 md:w-4/12 md:py-0">
+        <div className="w-10/12 py-6 md:w-4/12 md:py-0 lg:w-4/12">
           <div className="hidden md:flex md:flex-col md:gap-4 md:pb-8">
             <Avatar>
               <AvatarImage src="https://github.com/shadcn.png" />
