@@ -16,6 +16,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Input } from "./ui/input";
 import { TypographyH2 } from "./Typography/TypographyH2";
 import { TypographySmall } from "./Typography/TypographySmall";
+import { TypographyH3 } from "./Typography/TypographyH3";
+import { TypographyMuted } from "./Typography/TypographyMuted";
 
 export default function Home({
   take,
@@ -129,11 +131,9 @@ export default function Home({
               <AvatarImage src="https://github.com/shadcn.png" />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
-            <div>
-              <h3 className="font-bold">Weltpinion</h3>
-              <span className="text-sm text-gray-500">
-                Cringe-Posts and other interesting stuff
-              </span>
+            <div className="flex flex-col gap-1">
+              <TypographyH3>Weltpinion</TypographyH3>
+              <TypographyMuted>Cringe-Posts & other stuff</TypographyMuted>
             </div>
             <div className="flex gap-4">
               <Input type="email" placeholder="Email" />
@@ -143,7 +143,7 @@ export default function Home({
             </div>
           </div>
           <div className="flex items-center justify-between pb-4">
-            <TypographyH2>Recommendations</TypographyH2>
+            <TypographyH3>Recommendations</TypographyH3>
             <Link href={"/recommendations"} className="hover:underline">
               <TypographySmall>View all</TypographySmall>
             </Link>
