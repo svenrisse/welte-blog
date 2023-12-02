@@ -32,12 +32,12 @@ export default function PostPreview({ post }: { post: PostConnectionEdges }) {
               width={0}
               height={0}
               sizes="100vw"
-              className="h-20 w-20 rounded-xl md:h-28 md:w-28"
+              className="h-20 w-20 rounded-xl md:h-28 md:w-28 lg:h-32 lg:w-32"
             />
           </div>
         </div>
       </Link>
-      <div className="flex gap-2 pb-1 pt-4">
+      <div className="flex gap-2 pb-1 pt-4 lg:pt-2">
         <PostBadges post={post} />
       </div>
       <div className="flex justify-between pt-2">
