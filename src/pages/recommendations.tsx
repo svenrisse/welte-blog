@@ -13,7 +13,7 @@ export default function Recommendations() {
       <Header active="home" />
       <main className="flex flex-col items-center justify-center">
         <h1 className="py-10 text-xl font-bold">Recommendations by me</h1>
-        <div className="px-4">
+        <div className="flex flex-col items-center px-4">
           <RecommendationList />
         </div>
       </main>
