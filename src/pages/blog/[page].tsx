@@ -14,6 +14,7 @@ import PostActions from "~/components/PostActions";
 import { TypographyH1 } from "~/components/Typography/TypographyH1";
 import { TypographyMuted } from "~/components/Typography/TypographyMuted";
 import { TypographyP } from "~/components/Typography/TypographyP";
+import { TypographyLead } from "~/components/Typography/TypographyLead";
 
 export default function Page() {
   const router = useRouter();
@@ -42,11 +43,13 @@ export default function Page() {
   return (
     <>
       <Header active="archive" />
-      <main className="flex flex-col items-center justify-center gap-6 px-6 py-6">
-        <div className="flex flex-col gap-4">
-          <TypographyH1>{data?.data.post.title}</TypographyH1>
+      <main className="mx-auto flex w-full flex-col items-center justify-center gap-6 px-6 py-6">
+        <div className="flex flex-col gap-4 self-start">
+          <h1 className="scroll-m-20 text-3xl font-bold tracking-tight md:text-3xl">
+            {data?.data.post.title}
+          </h1>
           <div className="text-muted-foreground">
-            <TypographyP>{data?.data.post.description}</TypographyP>
+            <TypographyLead>{data?.data.post.description}</TypographyLead>
           </div>
           <div className="flex gap-4 px-1">
             <Avatar>
@@ -61,7 +64,9 @@ export default function Page() {
         </div>
         <div className="flex w-full flex-col gap-2">
           <Separator />
-          <PostActions postName={slug ? slug : ""} />
+          <div className="flex justify-between px-6 md:justify-center md:gap-8">
+            <PostActions postName={slug ? slug : ""} />
+          </div>
           <Separator />
         </div>
         <Image
@@ -70,7 +75,7 @@ export default function Page() {
           width={0}
           height={0}
           sizes="100vw"
-          className="w-full rounded-lg"
+          className="h-60 w-full rounded-lg"
         />
         <div className="prose prose-neutral dark:prose-invert xl:prose-lg">
           {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}
