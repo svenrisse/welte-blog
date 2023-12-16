@@ -11,9 +11,7 @@ import parseISO from "date-fns/parseISO";
 import format from "date-fns/format";
 import { Separator } from "~/components/ui/separator";
 import PostActions from "~/components/PostActions";
-import { TypographyH1 } from "~/components/Typography/TypographyH1";
 import { TypographyMuted } from "~/components/Typography/TypographyMuted";
-import { TypographyP } from "~/components/Typography/TypographyP";
 import { TypographyLead } from "~/components/Typography/TypographyLead";
 
 export default function Page() {
@@ -43,7 +41,7 @@ export default function Page() {
   return (
     <>
       <Header active="archive" />
-      <main className="mx-auto flex w-full flex-col items-center justify-center gap-6 px-6 py-6">
+      <main className="mx-auto flex w-full flex-col items-center justify-center gap-6 px-6 py-6 md:w-10/12">
         <div className="flex flex-col gap-4 self-start">
           <h1 className="scroll-m-20 text-3xl font-bold tracking-tight md:text-3xl">
             {data?.data.post.title}
@@ -64,7 +62,7 @@ export default function Page() {
         </div>
         <div className="flex w-full flex-col gap-2">
           <Separator />
-          <div className="flex justify-between px-6 md:justify-center md:gap-8">
+          <div className="flex justify-between px-6">
             <PostActions postName={slug ? slug : ""} />
           </div>
           <Separator />
@@ -75,7 +73,7 @@ export default function Page() {
           width={0}
           height={0}
           sizes="100vw"
-          className="h-60 w-full rounded-lg"
+          className="h-60 w-full rounded-lg md:aspect-video md:h-auto"
         />
         <div className="prose prose-neutral dark:prose-invert xl:prose-lg">
           {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}
