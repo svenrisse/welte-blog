@@ -72,7 +72,7 @@ export default function Page() {
           sizes="100vw"
           className="w-full rounded-lg"
         />
-        <div className="prose prose-neutral dark:prose-invert">
+        <div className="prose prose-neutral dark:prose-invert xl:prose-lg">
           {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}
           <TinaMarkdown content={data?.data.post.body} />
         </div>
