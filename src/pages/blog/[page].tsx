@@ -14,7 +14,6 @@ import PostActions from "~/components/PostActions";
 import { TypographyH1 } from "~/components/Typography/TypographyH1";
 import { TypographyMuted } from "~/components/Typography/TypographyMuted";
 import { TypographyP } from "~/components/Typography/TypographyP";
-import { TypographySmall } from "~/components/Typography/TypographySmall";
 
 export default function Page() {
   const router = useRouter();
