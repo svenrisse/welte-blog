@@ -41,7 +41,7 @@ export default function Page() {
   return (
     <>
       <Header active="archive" />
-      <main className="mx-auto flex w-full flex-col items-center justify-center gap-6 px-6 py-6 md:w-10/12 lg:w-7/12 xl:w-5/12">
+      <main className="mx-auto flex w-full flex-col items-center justify-center gap-6 px-6 py-6 md:w-10/12 lg:w-7/12 xl:w-5/12 2xl:w-4/12">
         <div className="flex flex-col gap-4 self-start">
           <h1 className="scroll-m-20 text-3xl font-bold tracking-tight md:text-3xl">
             {data?.data.post.title}
