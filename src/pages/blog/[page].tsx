@@ -13,8 +13,23 @@ import { Separator } from "~/components/ui/separator";
 import PostActions from "~/components/PostActions";
 import { TypographyMuted } from "~/components/Typography/TypographyMuted";
 import { TypographyLead } from "~/components/Typography/TypographyLead";
+import { Textarea } from "~/components/ui/textarea";
+import { useSession } from "next-auth/react";
+import { UserCircleIcon } from "lucide-react";
+import { TypographyH3 } from "~/components/Typography/TypographyH3";
+import { Button } from "~/components/ui/button";
+import { api } from "~/utils/api";
+
+interface CustomElements extends HTMLFormControlsCollection {
+  comment: HTMLTextAreaElement;
+}
+
+interface CustomForm extends HTMLFormElement {
+  readonly elements: CustomElements;
+}
 
 export default function Page() {
+  const { data: session } = useSession();
   const router = useRouter();
   const slug = router.asPath.split("/")[2];
 
@@ -28,6 +43,8 @@ export default function Page() {
     },
   });
 
+  const { mutateAsync } = api.post.addComment.useMutation({});
+
   const date = data && parseISO(data.data.post.createdAt!);
 
   const formattedDate =
@@ -38,6 +55,18 @@ export default function Page() {
         (date!.getFullYear() == new Date().getFullYear() ? "" : ", YYYY"),
     );
 
+  const handlePost = async (e: React.FormEvent<CustomForm>) => {
+    e.preventDefault();
+    const target = e.currentTarget.elements;
+
+    const comment = target.comment.value;
+    await mutateAsync({
+      text: comment,
+      postName: slug!,
+    });
+  };
+
+  console.log(data?.data);
   return (
     <>
       <Header active="archive" />
@@ -79,6 +108,30 @@ export default function Page() {
           {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}
           <TinaMarkdown content={data?.data.post.body} />
         </div>
+        <Separator />
+        <div className="self-start">
+          <TypographyH3>0 Comments</TypographyH3>
+        </div>
+        <form onSubmit={handlePost} className="flex w-full flex-col gap-4">
+          <div className="flex w-full gap-4">
+            <Avatar>
+              <AvatarImage src={session?.user.image} />
+              <AvatarFallback>
+                <UserCircleIcon />
+              </AvatarFallback>
+            </Avatar>
+            <Textarea
+              placeholder="Write a comment..."
+              id="comment"
+              required
+              minLength={15}
+              maxLength={250}
+            />
+          </div>
+          <div className="self-end">
+            <Button type="submit">Post</Button>
+          </div>
+        </form>
       </main>
     </>
   );
