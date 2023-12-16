@@ -11,6 +11,8 @@ import parseISO from "date-fns/parseISO";
 import format from "date-fns/format";
 import { Separator } from "~/components/ui/separator";
 import PostActions from "~/components/PostActions";
+import { TypographyMuted } from "~/components/Typography/TypographyMuted";
+import { TypographyLead } from "~/components/Typography/TypographyLead";
 
 export default function Page() {
   const router = useRouter();
@@ -39,24 +41,30 @@ export default function Page() {
   return (
     <>
       <Header active="archive" />
-      <main className="flex flex-col items-center justify-center gap-6 px-6 py-6">
-        <div className="flex flex-col gap-4">
-          <h1 className="text-3xl font-bold">{data?.data.post.title}</h1>
-          <p className="text-gray-500">{data?.data.post.description}</p>
+      <main className="mx-auto flex w-full flex-col items-center justify-center gap-6 px-6 py-6 md:w-10/12 lg:w-7/12 xl:w-5/12 2xl:w-4/12">
+        <div className="flex flex-col gap-4 self-start">
+          <h1 className="scroll-m-20 text-3xl font-bold tracking-tight md:text-3xl">
+            {data?.data.post.title}
+          </h1>
+          <div className="text-muted-foreground">
+            <TypographyLead>{data?.data.post.description}</TypographyLead>
+          </div>
           <div className="flex gap-4 px-1">
             <Avatar>
               <AvatarImage src="https://github.com/shadcn.png" />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
             <div className="flex flex-col text-xs">
-              <span className="">Welte</span>
-              <span className="">{formattedDate}</span>
+              <TypographyMuted>Welte</TypographyMuted>
+              <TypographyMuted>{formattedDate}</TypographyMuted>
             </div>
           </div>
         </div>
         <div className="flex w-full flex-col gap-2">
           <Separator />
-          <PostActions postName={slug ? slug : ""} />
+          <div className="flex justify-between px-6">
+            <PostActions postName={slug ? slug : ""} />
+          </div>
           <Separator />
         </div>
         <Image
@@ -65,9 +73,9 @@ export default function Page() {
           width={0}
           height={0}
           sizes="100vw"
-          className="w-full rounded-lg"
+          className="h-60 w-full rounded-lg md:aspect-video md:h-auto"
         />
-        <div className="prose">
+        <div className="prose prose-neutral max-w-none dark:prose-invert xl:prose-lg">
           {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}
           <TinaMarkdown content={data?.data.post.body} />
         </div>

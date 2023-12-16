@@ -3,9 +3,13 @@
 import { Heart, Loader2, MessageCircle, Share } from "lucide-react";
 import { Button } from "./ui/button";
 import { api } from "~/utils/api";
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
+import { TypographySmall } from "./Typography/TypographySmall";
+import { useToast } from "./ui/use-toast";
+import { ToastAction } from "./ui/toast";
 
 export default function PostActions({ postName }: { postName: string }) {
+  const { toast } = useToast();
   const { data: session } = useSession();
   const utils = api.useUtils();
   const { data, isInitialLoading } = api.post.getPost.useQuery(
@@ -36,8 +40,19 @@ export default function PostActions({ postName }: { postName: string }) {
 
   data?.Like[0]?.id;
 
-  function handleLikeClick() {
+  function handleLikeClick(event: React.SyntheticEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+
     if (!session) {
+      toast({
+        title: "Please login to like posts.",
+        action: (
+          <ToastAction onClick={() => signIn()} altText="Login">
+            Login
+          </ToastAction>
+        ),
+      });
       return;
     }
 
@@ -53,32 +68,38 @@ export default function PostActions({ postName }: { postName: string }) {
     });
   }
   return (
-    <div className="flex w-full justify-between px-1">
+    <>
       <div className="flex items-center">
         <Button
           variant={"ghost"}
           size={"icon"}
-          onClick={() => handleLikeClick()}
+          onClick={(event) => handleLikeClick(event)}
         >
           {isInitialLoading ? (
             <Loader2 className="animate-spin" />
           ) : (
             <>
               <Heart fill={`${hasLiked ? "red" : ""}`} />
-              <span className="ml-2 font-mono">{data?._count.Like}</span>
+              <div className="ml-2 font-mono">
+                <TypographySmall>{data?._count.Like}</TypographySmall>
+              </div>
             </>
           )}
         </Button>
       </div>
       <div className="flex items-center">
         <Button variant={"ghost"} size={"icon"}>
-          <MessageCircle />
+          <>
+            <MessageCircle />
+            <div className="ml-2 font-mono">
+              <TypographySmall>{data?._count.Comment}</TypographySmall>
+            </div>
+          </>
         </Button>
-        <span className="font-mono">0</span>
       </div>
       <Button variant={"ghost"} size={"icon"}>
         <Share />
       </Button>
-    </div>
+    </>
   );
 }

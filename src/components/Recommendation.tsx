@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { type RecommendationsConnectionEdges } from "tina/__generated__/types";
+import { TypographyH4 } from "./Typography/TypographyH4";
+import { TypographyMuted } from "./Typography/TypographyMuted";
 
 export default function Recommendation({
   rec,
@@ -19,10 +21,10 @@ export default function Recommendation({
             sizes="100vw"
             className="h-12 w-12 rounded-lg"
           />
-          <h2 className="font-bold">{rec?.node?.heading}</h2>
+          <TypographyH4>{rec.node?.heading}</TypographyH4>
         </div>
-        <div className="py-3 text-gray-500">
-          <span>{rec?.node?.description}</span>
+        <div className="py-3">
+          <TypographyMuted>{rec.node?.description}</TypographyMuted>
         </div>
       </div>
     </Link>

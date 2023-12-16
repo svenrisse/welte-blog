@@ -5,6 +5,9 @@ import format from "date-fns/format";
 import { parseISO } from "date-fns";
 import PostActions from "./PostActions";
 import PostBadges from "./PostBadges";
+import { TypographyH2 } from "./Typography/TypographyH2";
+import { TypographyH1 } from "./Typography/TypographyH1";
+import { TypographyMuted } from "./Typography/TypographyMuted";
 
 export default function HeroPost({ post }: { post: PostConnectionEdges }) {
   const date = parseISO(post.node!.createdAt!);
@@ -14,30 +17,33 @@ export default function HeroPost({ post }: { post: PostConnectionEdges }) {
   );
 
   return (
-    <div className="w-full">
-      <Link href={`/blog/${post?.node?._sys.filename}`}>
-        <div>
-          <Image
-            src={post.node!.heroImage}
-            alt={post.node!.title}
-            width={0}
-            height={0}
-            sizes="100vw"
-            className="h-60 w-full"
-          />
+    <Link
+      href={`/blog/${post?.node?._sys.filename}`}
+      className="flex w-full flex-col rounded-xl hover:bg-primary-foreground md:flex-row md:items-stretch md:px-8 md:py-4 lg:px-4"
+    >
+      <Image
+        src={post.node!.heroImage}
+        alt={post.node!.title}
+        width={0}
+        height={0}
+        sizes="100vw"
+        className="h-60 w-full md:h-full md:w-6/12 md:rounded-xl"
+      />
+      <div className="flex flex-col md:w-6/12 md:items-center md:justify-center lg:px-8">
+        <div className="flex flex-col px-6 pt-4 md:pt-2 md:text-center lg:px-2">
+          <TypographyH1>{post.node?.title}</TypographyH1>
+          <div className="py-4 md:py-2 lg:pb-2 2xl:py-6">
+            <TypographyMuted>{post.node?.description}</TypographyMuted>
+          </div>
+          <TypographyMuted>{formattedDate}</TypographyMuted>
         </div>
-        <div className="flex flex-col gap-4 px-6 pt-4">
-          <h2 className="text-2xl font-semibold">{post?.node?.title}</h2>
-          <p className="text-sm text-gray-500">{post?.node?.description}</p>
-          <span className="text-sm text-gray-500">{formattedDate}</span>
+        <div className="flex gap-2 px-6 py-4 md:py-2 lg:py-3 2xl:py-6">
+          <PostBadges post={post} />
         </div>
-      </Link>
-      <div className="flex gap-2 px-6 pb-1 pt-4">
-        <PostBadges post={post} />
+        <div className="flex justify-between px-6 md:justify-center md:gap-8">
+          <PostActions postName={post.node!._sys.filename} />
+        </div>
       </div>
-      <div className="px-6 pt-4">
-        <PostActions postName={post.node!._sys.filename} />
-      </div>
-    </div>
+    </Link>
   );
 }

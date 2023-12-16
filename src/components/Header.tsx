@@ -5,6 +5,7 @@ import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { UserDropDown } from "./UserDropdown";
 import { ThemeToggle } from "./ThemeToggle";
+import { TypographyH2 } from "./Typography/TypographyH2";
 
 export default function Header({
   active,
@@ -20,7 +21,7 @@ export default function Header({
             <AvatarImage src="https://github.com/shadcn.png" />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
-          <h2 className="font-bold md:text-2xl">Weltpinion</h2>
+          <TypographyH2>Weltpinion</TypographyH2>
         </div>
         <nav className="hidden justify-evenly px-2 pt-2 md:pt-0 lg:flex lg:w-1/3 lg:self-end">
           <Link
@@ -68,7 +69,7 @@ export default function Header({
           href={"/"}
           className={`${
             active === "home" && "rounded-none border-b-2 border-primary"
-          } w-1/3`}
+          } w-1/3 md:w-1/4`}
         >
           <Button variant={"ghost"} className="w-full">
             Home
@@ -78,7 +79,7 @@ export default function Header({
           href={"/archive"}
           className={`${
             active === "archive" && "rounded-none border-b-2 border-primary"
-          } w-1/3`}
+          } w-1/3 md:w-1/4`}
         >
           <Button variant={"ghost"} className="w-full">
             Archive
@@ -88,7 +89,7 @@ export default function Header({
           href={"/about"}
           className={`${
             active === "about" && "rounded-none border-b-2 border-primary"
-          } w-1/3`}
+          } w-1/3 md:w-1/4`}
         >
           <Button variant={"ghost"} className="w-full">
             About

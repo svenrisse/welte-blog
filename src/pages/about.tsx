@@ -37,7 +37,7 @@ export default function About() {
               </div>
             </div>
           ) : (
-            <div className="prose">
+            <div className="prose prose-neutral dark:prose-invert xl:prose-lg">
               {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}
               <TinaMarkdown content={data?.data.about.body} />
             </div>
