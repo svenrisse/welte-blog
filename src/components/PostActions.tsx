@@ -34,9 +34,9 @@ export default function PostActions({ postName }: { postName: string }) {
     },
   });
 
-  const hasLiked = data && data.Like.length > 0;
+  const hasLiked = data && data.Likes.length > 0;
 
-  data?.Like[0]?.id;
+  data?.Likes[0]?.id;
 
   function handleLikeClick(event: React.SyntheticEvent) {
     event.preventDefault();
@@ -77,7 +77,7 @@ export default function PostActions({ postName }: { postName: string }) {
             <>
               <Heart fill={`${hasLiked ? "red" : ""}`} />
               <div className="ml-2 font-mono">
-                <TypographySmall>{data?._count.Like}</TypographySmall>
+                <TypographySmall>{data?._count.Likes}</TypographySmall>
               </div>
             </>
           )}
@@ -88,7 +88,7 @@ export default function PostActions({ postName }: { postName: string }) {
           <>
             <MessageCircle />
             <div className="ml-2 font-mono">
-              <TypographySmall>{data?._count.Comment}</TypographySmall>
+              <TypographySmall>{data?._count.Comments}</TypographySmall>
             </div>
           </>
         </Button>

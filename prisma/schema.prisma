@@ -19,8 +19,8 @@ model Post {
   name      String    @unique
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  Like      Like[]
-  Comment   Comment[]
+  Likes     Like[]
+  Comments  Comment[]
 
   @@index([name])
 }
