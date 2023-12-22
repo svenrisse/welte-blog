@@ -5,11 +5,9 @@ import { Button } from "./ui/button";
 import { api } from "~/utils/api";
 import { signIn, useSession } from "next-auth/react";
 import { TypographySmall } from "./Typography/TypographySmall";
-import { useToast } from "./ui/use-toast";
-import { ToastAction } from "./ui/toast";
+import { toast } from "sonner";
 
 export default function PostActions({ postName }: { postName: string }) {
-  const { toast } = useToast();
   const { data: session } = useSession();
   const utils = api.useUtils();
   const { data, isInitialLoading } = api.post.getPost.useQuery(
@@ -45,13 +43,11 @@ export default function PostActions({ postName }: { postName: string }) {
     event.stopPropagation();
 
     if (!session) {
-      toast({
-        title: "Please login to like posts.",
-        action: (
-          <ToastAction onClick={() => signIn()} altText="Login">
-            Login
-          </ToastAction>
-        ),
+      toast("Please login to like posts.", {
+        action: {
+          label: "Login",
+          onClick: () => void signIn(),
+        },
       });
       return;
     }
