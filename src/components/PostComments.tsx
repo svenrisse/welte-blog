@@ -1,5 +1,6 @@
 import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
 import { UserCircleIcon } from "lucide-react";
+import Image from "next/image";
 
 type PostCommentsProps = {
   comments: {
@@ -23,7 +24,10 @@ export const PostComments = ({ comments }: PostCommentsProps) => {
       <div key={comment.id}>
         <Avatar>
           {comment.user.image ? (
-            <AvatarImage src={comment.user.image} />
+            <AvatarImage
+              src={comment.user.image}
+              className="h-16 w-16 rounded-full"
+            />
           ) : (
             <AvatarFallback>
               <UserCircleIcon />
