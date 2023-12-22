@@ -19,6 +19,7 @@ import { UserCircleIcon } from "lucide-react";
 import { TypographyH3 } from "~/components/Typography/TypographyH3";
 import { Button } from "~/components/ui/button";
 import { api } from "~/utils/api";
+import { PostComments } from "~/components/PostComments";
 
 interface CustomElements extends HTMLFormControlsCollection {
   comment: HTMLTextAreaElement;
@@ -43,6 +44,8 @@ export default function Page() {
     },
   });
 
+  const { data: postData } = api.post.getPost.useQuery({ postName: slug! });
+
   const { mutateAsync } = api.post.addComment.useMutation({});
 
   const date = data && parseISO(data.data.post.createdAt!);
@@ -66,7 +69,6 @@ export default function Page() {
     });
   };
 
-  console.log(data?.data);
   return (
     <>
       <Header active="archive" />
@@ -135,6 +137,7 @@ export default function Page() {
             <Button type="submit">Post</Button>
           </div>
         </form>
+        {postData?.Comments && <PostComments comments={postData?.Comments} />}
       </main>
     </>
   );
