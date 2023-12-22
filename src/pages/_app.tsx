@@ -6,7 +6,7 @@ import { Inter } from "next/font/google";
 import { api } from "~/utils/api";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ThemeProvider } from "~/components/ThemeProvider";
-import { Toaster } from "~/components/ui/toaster";
+import { Toaster } from "~/components/ui/sonner";
 
 const inter = Inter({
   subsets: ["latin"],
