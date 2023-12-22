@@ -7,6 +7,7 @@ import { api } from "~/utils/api";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ThemeProvider } from "~/components/ThemeProvider";
 import { Toaster } from "~/components/ui/sonner";
+import { useTheme } from "next-themes";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -29,7 +30,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
           <main className={`${inter.variable} font-sans`}>
             <Component {...pageProps} />
           </main>
-          <Toaster />
+          <Toaster theme={"system"} richColors />
         </ThemeProvider>
       </SessionProvider>
 
