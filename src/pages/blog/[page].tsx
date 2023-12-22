@@ -115,10 +115,13 @@ export default function Page() {
         <form onSubmit={handlePost} className="flex w-full flex-col gap-4">
           <div className="flex w-full gap-4">
             <Avatar>
-              <AvatarImage src={session?.user.image} />
-              <AvatarFallback>
-                <UserCircleIcon />
-              </AvatarFallback>
+              {session?.user.image ? (
+                <AvatarImage src={session.user.image} />
+              ) : (
+                <AvatarFallback>
+                  <UserCircleIcon />
+                </AvatarFallback>
+              )}
             </Avatar>
             <Textarea
               placeholder="Write a comment..."
