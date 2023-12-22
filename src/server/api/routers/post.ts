@@ -15,7 +15,7 @@ export const postRouter = createTRPCRouter({
           name: input.postName,
         },
         update: {
-          Like: {
+          Likes: {
             create: {
               user: {
                 connect: {
@@ -27,7 +27,7 @@ export const postRouter = createTRPCRouter({
         },
         create: {
           name: input.postName,
-          Like: {
+          Likes: {
             create: {
               user: {
                 connect: {
@@ -59,7 +59,7 @@ export const postRouter = createTRPCRouter({
           name: input.postName,
         },
         update: {
-          Comment: {
+          Comments: {
             create: {
               text: input.text,
               user: {
@@ -72,7 +72,7 @@ export const postRouter = createTRPCRouter({
         },
         create: {
           name: input.postName,
-          Comment: {
+          Comments: {
             create: {
               text: input.text,
               user: {
@@ -102,8 +102,12 @@ export const postRouter = createTRPCRouter({
           name: input.postName,
         },
         include: {
-          Comment: true,
-          Like: {
+          Comments: {
+            include: {
+              user: true,
+            },
+          },
+          Likes: {
             where: {
               userId: ctx.session?.user.id,
             },
