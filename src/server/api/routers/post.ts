@@ -102,6 +102,7 @@ export const postRouter = createTRPCRouter({
           name: input.postName,
         },
         include: {
+          Comment: true,
           Like: {
             where: {
               userId: ctx.session?.user.id,
