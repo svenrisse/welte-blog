@@ -43,7 +43,7 @@ export default function PostActions({ postName }: { postName: string }) {
     event.stopPropagation();
 
     if (!session) {
-      toast("Please login to like posts.", {
+      toast.info("Please login to like posts.", {
         action: {
           label: "Login",
           onClick: () => void signIn(),
