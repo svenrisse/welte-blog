@@ -8,12 +8,27 @@ import { TypographySmall } from "./Typography/TypographySmall";
 import { Separator } from "~/components/ui/separator";
 
 type PostCommentsProps = {
-  comments: RouterOutputs["post"]["getComments"];
+  comments: {
+    user: {
+      id: string;
+      name: string;
+      email: string | null;
+      emailVerified: Date | null;
+      image: string | null;
+    };
+    id: string;
+    postId: string;
+    userId: string;
+    text: string;
+    createdAt: Date;
+    updatedAt: Date;
+    originalCommentId: string | null;
+  }[];
 };
 
 export const PostComments = ({ comments }: PostCommentsProps) => {
   const commentElements = comments.map((comment) => {
-    const date = comment.createdAt as Date;
+    const date = comment.createdAt;
     const formattedDate =
       comments &&
       format(
