@@ -40,7 +40,7 @@ export const postRouter = createTRPCRouter({
       });
     }),
   unlikePost: protectedProcedure
-    .input(z.object({ postId: z.number() }))
+    .input(z.object({ postId: z.string() }))
     .mutation((args) => {
       return args.ctx.db.like.delete({
         where: {
@@ -86,7 +86,7 @@ export const postRouter = createTRPCRouter({
       });
     }),
   deleteComment: protectedProcedure
-    .input(z.object({ commentId: z.number() }))
+    .input(z.object({ commentId: z.string() }))
     .mutation(({ ctx, input }) => {
       return ctx.db.comment.delete({
         where: {
@@ -123,6 +123,7 @@ export const postRouter = createTRPCRouter({
         include: {
           user: true,
         },
+        orderBy: [{ createdAt: "desc" }],
       });
     }),
 });
