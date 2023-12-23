@@ -139,7 +139,9 @@ export default function Page() {
             <Button type="submit">Post</Button>
           </div>
         </form>
-        {comments && <PostComments comments={comments} />}
+        <div className="flex flex-col gap-8 self-start pb-8">
+          {comments && <PostComments comments={comments} />}
+        </div>
       </main>
     </>
   );
