@@ -8,6 +8,8 @@ import { AvatarFallback } from "~/components/ui/avatar";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { object, string } from "zod";
+import { Loader2 } from "lucide-react";
+import { toast } from "sonner";
 
 const commentSchema = object({
   text: string({ required_error: "Text is required" }).min(3).max(250),
@@ -22,9 +24,8 @@ export const CreateComment = ({ slug }: CreateCommentProps) => {
   const utils = api.useUtils();
 
   const [text, setText] = useState("");
-  const [error, setError] = useState(false);
 
-  const { mutateAsync } = api.post.addComment.useMutation({
+  const { mutateAsync, isLoading } = api.post.addComment.useMutation({
     onSettled: () => {
       void utils.post.getComments.invalidate({ postName: slug });
       void utils.post.getPost.invalidate({ postName: slug });
@@ -37,13 +38,14 @@ export const CreateComment = ({ slug }: CreateCommentProps) => {
     try {
       commentSchema.parse({ text });
     } catch (e) {
-      setError(true);
+      toast.error("Comment must be between 3 and 250 characters long.");
       return;
     }
     await mutateAsync({
       text: text,
       postName: slug,
     });
+    toast.success("Success!");
     setText("");
   };
 
@@ -67,13 +69,19 @@ export const CreateComment = ({ slug }: CreateCommentProps) => {
           id="comment"
           onChange={(e) => setText(e.target.value)}
           value={text}
-          required
           minLength={3}
           maxLength={250}
         />
       </div>
       <div className="self-end">
-        <Button type="submit">Post</Button>
+        {isLoading ? (
+          <Button disabled>
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            Please wait
+          </Button>
+        ) : (
+          <Button type="submit">Post</Button>
+        )}
       </div>
     </form>
   );
