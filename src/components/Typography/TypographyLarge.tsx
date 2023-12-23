@@ -1,5 +1,3 @@
 export function TypographyLarge({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="text-lg font-semibold">Are you sure absolutely sure?</div>
-  );
+  return <span className="text-lg font-semibold">{children}</span>;
 }
