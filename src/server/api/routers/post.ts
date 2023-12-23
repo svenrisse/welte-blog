@@ -102,17 +102,26 @@ export const postRouter = createTRPCRouter({
           name: input.postName,
         },
         include: {
-          Comments: {
-            include: {
-              user: true,
-            },
-          },
           Likes: {
             where: {
               userId: ctx.session?.user.id,
             },
           },
           _count: true,
+        },
+      });
+    }),
+  getComments: publicProcedure
+    .input(z.object({ postName: z.string() }))
+    .query(({ ctx, input }) => {
+      return ctx.db.comment.findMany({
+        where: {
+          post: {
+            name: input.postName,
+          },
+        },
+        include: {
+          user: true,
         },
       });
     }),
