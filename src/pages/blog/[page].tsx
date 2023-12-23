@@ -113,7 +113,7 @@ export default function Page() {
         <Separator />
         <div className="self-start">
           <TypographyH3>
-            {comments?.length} {comments?.length === 1 ? "Comment" : "Comment"}
+            {comments?.length} {comments?.length === 1 ? "Comment" : "Comments"}
           </TypographyH3>
         </div>
         <form onSubmit={handlePost} className="flex w-full flex-col gap-4">
