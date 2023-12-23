@@ -44,7 +44,7 @@ export default function Page() {
     },
   });
 
-  const { data: postData } = api.post.getPost.useQuery({ postName: slug! });
+  const { data: comments } = api.post.getComments.useQuery({ postName: slug! });
 
   const { mutateAsync } = api.post.addComment.useMutation({});
 
@@ -137,7 +137,7 @@ export default function Page() {
             <Button type="submit">Post</Button>
           </div>
         </form>
-        {postData?.Comments && <PostComments comments={postData?.Comments} />}
+        {comments && <PostComments comments={comments} />}
       </main>
     </>
   );
