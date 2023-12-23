@@ -106,13 +106,15 @@ export default function Page() {
           sizes="100vw"
           className="h-60 w-full rounded-lg md:aspect-video md:h-auto"
         />
-        <div className="prose prose-neutral max-w-none dark:prose-invert xl:prose-lg">
+        <div className="prose prose-neutral max-w-none xl:prose-lg dark:prose-invert">
           {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}
           <TinaMarkdown content={data?.data.post.body} />
         </div>
         <Separator />
         <div className="self-start">
-          <TypographyH3>0 Comments</TypographyH3>
+          <TypographyH3>
+            {comments?.length} {comments?.length === 1 ? "Comment" : "Comment"}
+          </TypographyH3>
         </div>
         <form onSubmit={handlePost} className="flex w-full flex-col gap-4">
           <div className="flex w-full gap-4">
