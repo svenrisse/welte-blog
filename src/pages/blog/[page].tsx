@@ -13,26 +13,14 @@ import { Separator } from "~/components/ui/separator";
 import PostActions from "~/components/PostActions";
 import { TypographyMuted } from "~/components/Typography/TypographyMuted";
 import { TypographyLead } from "~/components/Typography/TypographyLead";
-import { Textarea } from "~/components/ui/textarea";
-import { useSession } from "next-auth/react";
-import { UserCircleIcon } from "lucide-react";
 import { TypographyH3 } from "~/components/Typography/TypographyH3";
-import { Button } from "~/components/ui/button";
 import { api } from "~/utils/api";
 import { PostComments } from "~/components/PostComments";
-
-interface CustomElements extends HTMLFormControlsCollection {
-  comment: HTMLTextAreaElement;
-}
-
-interface CustomForm extends HTMLFormElement {
-  readonly elements: CustomElements;
-}
+import { CreateComment } from "~/components/CreateComment";
 
 export default function Page() {
-  const { data: session } = useSession();
   const router = useRouter();
-  const slug = router.asPath.split("/")[2];
+  const slug = router.asPath.split("/")[2]!;
 
   const { data } = useQuery({
     queryKey: ["Posts", slug],
@@ -46,8 +34,6 @@ export default function Page() {
 
   const { data: comments } = api.post.getComments.useQuery({ postName: slug! });
 
-  const { mutateAsync } = api.post.addComment.useMutation({});
-
   const date = data && parseISO(data.data.post.createdAt!);
 
   const formattedDate =
@@ -57,17 +43,6 @@ export default function Page() {
       "MMM d" +
         (date!.getFullYear() == new Date().getFullYear() ? "" : ", YYYY"),
     );
-
-  const handlePost = async (e: React.FormEvent<CustomForm>) => {
-    e.preventDefault();
-    const target = e.currentTarget.elements;
-
-    const comment = target.comment.value;
-    await mutateAsync({
-      text: comment,
-      postName: slug!,
-    });
-  };
 
   return (
     <>
@@ -94,7 +69,7 @@ export default function Page() {
         <div className="flex w-full flex-col gap-2">
           <Separator />
           <div className="flex justify-between px-6">
-            <PostActions postName={slug ? slug : ""} />
+            <PostActions postName={slug} />
           </div>
           <Separator />
         </div>
@@ -116,29 +91,7 @@ export default function Page() {
             {comments?.length} {comments?.length === 1 ? "Comment" : "Comments"}
           </TypographyH3>
         </div>
-        <form onSubmit={handlePost} className="flex w-full flex-col gap-4">
-          <div className="flex w-full gap-4">
-            <Avatar>
-              {session?.user.image ? (
-                <AvatarImage src={session.user.image} />
-              ) : (
-                <AvatarFallback>
-                  <UserCircleIcon />
-                </AvatarFallback>
-              )}
-            </Avatar>
-            <Textarea
-              placeholder="Write a comment..."
-              id="comment"
-              required
-              minLength={15}
-              maxLength={250}
-            />
-          </div>
-          <div className="self-end">
-            <Button type="submit">Post</Button>
-          </div>
-        </form>
+        <CreateComment slug={slug} />
         <div className="flex flex-col gap-8 self-start pb-8">
           {comments && <PostComments comments={comments} />}
         </div>
