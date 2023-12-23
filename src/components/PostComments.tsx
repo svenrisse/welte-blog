@@ -1,21 +1,9 @@
 import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
 import { UserCircleIcon } from "lucide-react";
-import Image from "next/image";
+import { type RouterOutputs } from "~/utils/api";
 
 type PostCommentsProps = {
-  comments: {
-    id: number;
-    postId: number;
-    userId: string;
-    text: string;
-    user: {
-      id: string;
-      name: string | null;
-      email: string | null;
-      emailVerified: Date | null;
-      image: string | null;
-    };
-  }[];
+  comments: RouterOutputs["post"]["getComments"];
 };
 
 export const PostComments = ({ comments }: PostCommentsProps) => {
