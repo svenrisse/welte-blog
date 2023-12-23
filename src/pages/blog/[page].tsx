@@ -32,7 +32,7 @@ export default function Page() {
     },
   });
 
-  const { data: comments } = api.post.getComments.useQuery({ postName: slug! });
+  const { data: comments } = api.post.getComments.useQuery({ postName: slug });
 
   const date = data && parseISO(data.data.post.createdAt!);
 
