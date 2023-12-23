@@ -44,6 +44,7 @@ export const CreateComment = ({ slug }: CreateCommentProps) => {
       text: text,
       postName: slug,
     });
+    setText("");
   };
 
   return (
