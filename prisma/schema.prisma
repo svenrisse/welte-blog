@@ -15,7 +15,7 @@ datasource db {
 }
 
 model Post {
-  id        Int       @id @default(autoincrement())
+  id        String    @id @default(cuid())
   name      String    @unique
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
@@ -26,9 +26,9 @@ model Post {
 }
 
 model Like {
-  id     Int    @id @default(autoincrement())
+  id     String @id @default(cuid())
   post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
-  postId Int
+  postId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
 
@@ -36,12 +36,24 @@ model Like {
 }
 
 model Comment {
-  id     Int    @id @default(autoincrement())
-  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
-  postId Int
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId String
-  text   String
+  id                String        @id @default(cuid())
+  post              Post          @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId            String
+  user              User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId            String
+  text              String
+  CommentLikes      CommentLike[]
+  originalCommentId String?       @default(cuid())
+  originalComment   Comment?      @relation("responses", fields: [originalCommentId], references: [id])
+  Responses         Comment[]     @relation("responses")
+}
+
+model CommentLike {
+  id        String  @id @default(cuid())
+  comment   Comment @relation(fields: [commentId], references: [id])
+  commentId String
+  user      User    @relation(fields: [userId], references: [id])
+  userId    String
 }
 
 // Necessary for Next auth
@@ -72,15 +84,16 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String        @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?       @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   sessions      Session[]
   Likes         Like[]
-  Comment       Comment[]
+  Comments      Comment[]
+  CommentLikes  CommentLike[]
 }
 
 model VerificationToken {
