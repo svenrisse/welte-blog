@@ -93,7 +93,7 @@ export default function Page() {
         </div>
         <CreateComment slug={slug} />
         <div className="flex w-full flex-col gap-8 self-start pb-8">
-          {comments && <PostComments comments={comments} />}
+          {comments && <PostComments comments={comments} postName={slug} />}
         </div>
       </main>
     </>

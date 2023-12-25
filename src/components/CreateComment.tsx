@@ -28,7 +28,7 @@ export const CreateComment = ({ slug }: CreateCommentProps) => {
   const { mutateAsync, isLoading } = api.post.addComment.useMutation({
     onSettled: () => {
       void utils.post.getComments.invalidate({ postName: slug });
-      void utils.post.getPost.invalidate({ postName: slug });
+      void utils.post.getPostData.invalidate({ postName: slug });
     },
   });
 
@@ -45,7 +45,6 @@ export const CreateComment = ({ slug }: CreateCommentProps) => {
       text: text,
       postName: slug,
     });
-    toast.success("Success!");
     setText("");
   };
 

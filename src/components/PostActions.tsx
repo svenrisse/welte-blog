@@ -10,7 +10,7 @@ import { toast } from "sonner";
 export default function PostActions({ postName }: { postName: string }) {
   const { data: session } = useSession();
   const utils = api.useUtils();
-  const { data, isInitialLoading } = api.post.getPost.useQuery(
+  const { data, isInitialLoading } = api.post.getPostData.useQuery(
     {
       postName: postName,
     },
@@ -18,7 +18,7 @@ export default function PostActions({ postName }: { postName: string }) {
   );
   const { mutateAsync: likeMutation } = api.post.likePost.useMutation({
     onSuccess() {
-      void utils.post.getPost.invalidate({ postName: postName });
+      void utils.post.getPostData.invalidate({ postName: postName });
     },
     onError() {
       alert("error");
@@ -27,7 +27,7 @@ export default function PostActions({ postName }: { postName: string }) {
 
   const { mutateAsync: unlikeMutation } = api.post.unlikePost.useMutation({
     onSuccess() {
-      void utils.post.getPost.invalidate({ postName: postName });
+      void utils.post.getPostData.invalidate({ postName: postName });
     },
     onError() {
       alert("error");

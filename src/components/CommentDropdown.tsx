@@ -1,3 +1,4 @@
+import { api } from "~/utils/api";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,12 +9,35 @@ import {
 } from "../components/ui/dropdown-menu";
 import { Button } from "./ui/button";
 import { Flag, MoreHorizontal, Trash2 } from "lucide-react";
+import { toast } from "sonner";
 
 type CommentDropdownProps = {
   userIsOrig: boolean;
+  commentId: string;
+  postName: string;
 };
 
-export const CommentDropdown = ({ userIsOrig }: CommentDropdownProps) => {
+export const CommentDropdown = ({
+  userIsOrig,
+  commentId,
+  postName,
+}: CommentDropdownProps) => {
+  const utils = api.useUtils();
+  const { mutateAsync } = api.post.deleteComment.useMutation({
+    onSuccess: () => {
+      void utils.post.getComments.invalidate({ postName: postName });
+      void utils.post.getPostData.invalidate({ postName: postName });
+      toast.info("Comment deleted.");
+    },
+  });
+
+  const handleDeleteClick = async () => {
+    try {
+      await mutateAsync({ commentId: commentId });
+    } catch (error) {
+      toast.error("Something went wrong.");
+    }
+  };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -25,7 +49,10 @@ export const CommentDropdown = ({ userIsOrig }: CommentDropdownProps) => {
         <DropdownMenuGroup>
           {userIsOrig && (
             <>
-              <DropdownMenuItem className="gap-4">
+              <DropdownMenuItem
+                className="gap-4"
+                onClick={() => handleDeleteClick()}
+              >
                 <Trash2 size={"1.25rem"} />
                 <span>Delete Comment</span>
               </DropdownMenuItem>
