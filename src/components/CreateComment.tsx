@@ -32,7 +32,7 @@ export const CreateComment = ({ slug }: CreateCommentProps) => {
     },
   });
 
-  const handleSubmit = async (e: React.SyntheticEvent) => {
+  const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
 
     try {
@@ -41,9 +41,12 @@ export const CreateComment = ({ slug }: CreateCommentProps) => {
       toast.error("Comment must be between 3 and 250 characters long.");
       return;
     }
-    await mutateAsync({
-      text: text,
-      postName: slug,
+    toast.promise(mutateAsync({ postName: slug, text: text }), {
+      loading: "Loading...",
+      success: () => {
+        return "Comment has been posted.";
+      },
+      error: "Error",
     });
     setText("");
   };

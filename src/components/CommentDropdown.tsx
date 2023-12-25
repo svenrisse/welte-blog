@@ -27,16 +27,17 @@ export const CommentDropdown = ({
     onSuccess: () => {
       void utils.post.getComments.invalidate({ postName: postName });
       void utils.post.getPostData.invalidate({ postName: postName });
-      toast.info("Comment deleted.");
     },
   });
 
-  const handleDeleteClick = async () => {
-    try {
-      await mutateAsync({ commentId: commentId });
-    } catch (error) {
-      toast.error("Something went wrong.");
-    }
+  const handleDeleteClick = () => {
+    toast.promise(mutateAsync({ commentId: commentId }), {
+      loading: "Loading...",
+      success: () => {
+        return "Comment deleted.";
+      },
+      error: "Something went wrong.",
+    });
   };
   return (
     <DropdownMenu>
