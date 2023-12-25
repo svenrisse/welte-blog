@@ -1,11 +1,12 @@
 import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
 import { UserCircleIcon } from "lucide-react";
-import { type RouterOutputs } from "~/utils/api";
 import format from "date-fns/format";
 import { TypographyMuted } from "./Typography/TypographyMuted";
 import { Typography } from "./Typography/Typography";
 import { TypographySmall } from "./Typography/TypographySmall";
 import { Separator } from "~/components/ui/separator";
+import { CommentDropdown } from "./CommentDropdown";
+import { useSession } from "next-auth/react";
 
 type PostCommentsProps = {
   comments: {
@@ -27,6 +28,7 @@ type PostCommentsProps = {
 };
 
 export const PostComments = ({ comments }: PostCommentsProps) => {
+  const { data } = useSession();
   const commentElements = comments.map((comment) => {
     const date = comment.createdAt;
     const formattedDate =
@@ -60,6 +62,9 @@ export const PostComments = ({ comments }: PostCommentsProps) => {
             <TypographyMuted>{formattedDate}</TypographyMuted>
           </div>
           <TypographySmall>{comment.text}</TypographySmall>
+        </div>
+        <div className="ml-auto">
+          <CommentDropdown userIsOrig={data?.user.id === comment.userId} />
         </div>
       </div>
     );
