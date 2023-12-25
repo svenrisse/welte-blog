@@ -9,6 +9,7 @@ import { CommentDropdown } from "./CommentDropdown";
 import { useSession } from "next-auth/react";
 
 type PostCommentsProps = {
+  postName: string;
   comments: {
     user: {
       id: string;
@@ -27,7 +28,7 @@ type PostCommentsProps = {
   }[];
 };
 
-export const PostComments = ({ comments }: PostCommentsProps) => {
+export const PostComments = ({ comments, postName }: PostCommentsProps) => {
   const { data } = useSession();
   const commentElements = comments.map((comment) => {
     const date = comment.createdAt;
@@ -64,7 +65,11 @@ export const PostComments = ({ comments }: PostCommentsProps) => {
           <TypographySmall>{comment.text}</TypographySmall>
         </div>
         <div className="ml-auto">
-          <CommentDropdown userIsOrig={data?.user.id === comment.userId} />
+          <CommentDropdown
+            userIsOrig={data?.user.id === comment.userId}
+            commentId={comment.id}
+            postName={postName}
+          />
         </div>
       </div>
     );

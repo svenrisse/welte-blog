@@ -94,7 +94,7 @@ export const postRouter = createTRPCRouter({
         },
       });
     }),
-  getPost: publicProcedure
+  getPostData: publicProcedure
     .input(z.object({ postName: z.string() }))
     .query(({ ctx, input }) => {
       return ctx.db.post.findUnique({
