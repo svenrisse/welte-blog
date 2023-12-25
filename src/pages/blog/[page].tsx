@@ -81,7 +81,7 @@ export default function Page() {
           sizes="100vw"
           className="h-60 w-full rounded-lg md:aspect-video md:h-auto"
         />
-        <div className="prose prose-neutral max-w-none xl:prose-lg dark:prose-invert">
+        <div className="prose prose-neutral max-w-none dark:prose-invert xl:prose-lg">
           {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}
           <TinaMarkdown content={data?.data.post.body} />
         </div>
@@ -92,7 +92,7 @@ export default function Page() {
           </TypographyH3>
         </div>
         <CreateComment slug={slug} />
-        <div className="flex flex-col gap-8 self-start pb-8">
+        <div className="flex w-full flex-col gap-8 self-start pb-8">
           {comments && <PostComments comments={comments} />}
         </div>
       </main>
