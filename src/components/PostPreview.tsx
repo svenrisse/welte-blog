@@ -17,7 +17,7 @@ export default function PostPreview({ post }: { post: PostConnectionEdges }) {
   );
 
   return (
-    <div className="flex w-full flex-col px-6 py-4 hover:bg-primary-foreground">
+    <div className="group flex w-full flex-col px-6 py-4 hover:bg-primary-foreground">
       <Link href={`/blog/${post?.node?._sys.filename}`}>
         <div className="flex justify-between">
           <div className="flex w-8/12 flex-col gap-4">
@@ -40,7 +40,7 @@ export default function PostPreview({ post }: { post: PostConnectionEdges }) {
           </div>
         </div>
       </Link>
-      <div className="flex justify-between pt-2">
+      <div className="flex justify-between pt-2 opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100">
         <PostActions postName={post.node!._sys.filename} />
       </div>
     </div>
