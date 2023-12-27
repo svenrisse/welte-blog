@@ -6,7 +6,6 @@ import {
   type NextAuthOptions,
 } from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
-
 import { env } from "~/env.mjs";
 import { db } from "~/server/db";
 
@@ -20,15 +19,16 @@ declare module "next-auth" {
   interface Session extends DefaultSession {
     user: DefaultSession["user"] & {
       id: string;
+      role: "USER" | "ADMIN";
       // ...other properties
       // role: UserRole;
     };
   }
 
-  // interface User {
-  //   // ...other properties
-  //   // role: UserRole;
-  // }
+  interface User {
+    // ...other properties
+    role: "USER" | "ADMIN";
+  }
 }
 
 /**
@@ -43,6 +43,7 @@ export const authOptions: NextAuthOptions = {
       user: {
         ...session.user,
         id: user.id,
+        role: user.role,
       },
     }),
   },
