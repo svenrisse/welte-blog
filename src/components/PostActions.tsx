@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
+import Link from "next/link";
 import { Heart, Loader2, MessageCircle, Share } from "lucide-react";
 import { Button } from "./ui/button";
 import { api } from "~/utils/api";
@@ -65,35 +66,25 @@ export default function PostActions({ postName }: { postName: string }) {
   }
   return (
     <>
-      <div className="flex items-center">
-        <Button
-          variant={"ghost"}
-          size={"icon"}
-          onClick={(event) => handleLikeClick(event)}
-        >
-          {isInitialLoading ? (
-            <Loader2 className="animate-spin" />
-          ) : (
-            <>
-              <Heart fill={`${hasLiked ? "red" : ""}`} />
-              <div className="ml-2 font-mono">
-                <TypographySmall>{data?._count.Likes}</TypographySmall>
-              </div>
-            </>
-          )}
+      <Button
+        variant={"ghost"}
+        size={"sm"}
+        onClick={(event) => handleLikeClick(event)}
+      >
+        <Heart fill={`${hasLiked ? "red" : ""}`} />
+        <div className="ml-2 font-mono">
+          <TypographySmall>{data?._count.Likes}</TypographySmall>
+        </div>
+      </Button>
+      <Link href={`/blog/${postName}/comments`}>
+        <Button variant={"ghost"} size={"sm"}>
+          <MessageCircle />
+          <div className="ml-2 font-mono">
+            <TypographySmall>{data?._count.Comments}</TypographySmall>
+          </div>
         </Button>
-      </div>
-      <div className="flex items-center">
-        <Button variant={"ghost"} size={"icon"}>
-          <>
-            <MessageCircle />
-            <div className="ml-2 font-mono">
-              <TypographySmall>{data?._count.Comments}</TypographySmall>
-            </div>
-          </>
-        </Button>
-      </div>
-      <Button variant={"ghost"} size={"icon"}>
+      </Link>
+      <Button variant={"ghost"} size={"sm"}>
         <Share />
       </Button>
     </>
