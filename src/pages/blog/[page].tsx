@@ -86,7 +86,7 @@ export default function Page() {
           <TinaMarkdown content={data?.data.post.body} />
         </div>
         <Separator />
-        <div className="self-start">
+        <div className="self-start" id="commentSection">
           <TypographyH3>
             {comments?.length} {comments?.length === 1 ? "Comment" : "Comments"}
           </TypographyH3>
