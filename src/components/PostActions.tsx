@@ -1,17 +1,18 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import Link from "next/link";
-import { Heart, Loader2, MessageCircle, Share } from "lucide-react";
+import { Heart, MessageCircle, Share } from "lucide-react";
 import { Button } from "./ui/button";
 import { api } from "~/utils/api";
 import { signIn, useSession } from "next-auth/react";
 import { TypographySmall } from "./Typography/TypographySmall";
 import { toast } from "sonner";
+import { ShareButton } from "./ShareButton";
 
 export default function PostActions({ postName }: { postName: string }) {
   const { data: session } = useSession();
   const utils = api.useUtils();
-  const { data, isInitialLoading } = api.post.getPostData.useQuery(
+  const { data } = api.post.getPostData.useQuery(
     {
       postName: postName,
     },
@@ -84,9 +85,7 @@ export default function PostActions({ postName }: { postName: string }) {
           </div>
         </Button>
       </Link>
-      <Button variant={"ghost"} size={"sm"}>
-        <Share />
-      </Button>
+      <ShareButton />
     </>
   );
 }
