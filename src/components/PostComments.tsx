@@ -67,6 +67,7 @@ export const PostComments = ({ comments, postName }: PostCommentsProps) => {
         <div className="ml-auto">
           <CommentDropdown
             userIsOrig={data?.user.id === comment.userId}
+            userRole={data?.user.role}
             commentId={comment.id}
             postName={postName}
           />

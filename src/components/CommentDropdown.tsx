@@ -10,17 +10,20 @@ import {
 import { Button } from "./ui/button";
 import { Flag, MoreHorizontal, Trash2 } from "lucide-react";
 import { toast } from "sonner";
+import { type UserRole } from "@prisma/client";
 
 type CommentDropdownProps = {
   userIsOrig: boolean;
   commentId: string;
   postName: string;
+  userRole?: UserRole;
 };
 
 export const CommentDropdown = ({
   userIsOrig,
   commentId,
   postName,
+  userRole,
 }: CommentDropdownProps) => {
   const utils = api.useUtils();
   const { mutateAsync } = api.post.deleteComment.useMutation({
@@ -48,7 +51,7 @@ export const CommentDropdown = ({
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
         <DropdownMenuGroup>
-          {userIsOrig && (
+          {(userIsOrig || userRole === "ADMIN") && (
             <>
               <DropdownMenuItem
                 className="gap-4"
