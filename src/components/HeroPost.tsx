@@ -19,7 +19,7 @@ export default function HeroPost({ post }: { post: PostConnectionEdges }) {
   return (
     <Link
       href={`/blog/${post?.node?._sys.filename}`}
-      className="flex w-full flex-col rounded-xl hover:bg-primary-foreground md:flex-row md:items-stretch md:px-8 md:py-4 lg:px-4"
+      className="group flex w-full flex-col rounded-xl hover:bg-primary-foreground md:flex-row md:items-stretch md:px-8 md:py-4 lg:px-4"
     >
       <Image
         src={post.node!.heroImage}
@@ -40,7 +40,7 @@ export default function HeroPost({ post }: { post: PostConnectionEdges }) {
         <div className="flex gap-2 px-6 py-4 md:py-2 lg:py-3 2xl:py-6">
           <PostBadges post={post} />
         </div>
-        <div className="flex justify-between px-6 md:justify-center md:gap-8">
+        <div className="flex justify-between px-6 opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100 md:justify-center md:gap-8">
           <PostActions postName={post.node!._sys.filename} />
         </div>
       </div>
