@@ -68,8 +68,8 @@ export default function Page() {
         </div>
         <div className="flex w-full flex-col gap-2">
           <Separator />
-          <div className="flex justify-between px-6 ">
-            <PostActions postName={slug} />
+          <div className="flex justify-start gap-4">
+            <PostActions postName={slug} elaborate />
           </div>
           <Separator />
         </div>

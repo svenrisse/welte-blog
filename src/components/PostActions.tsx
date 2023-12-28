@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import Link from "next/link";
-import { Heart, MessageCircle, Share } from "lucide-react";
+import { Heart, MessageCircle } from "lucide-react";
 import { Button } from "./ui/button";
 import { api } from "~/utils/api";
 import { signIn, useSession } from "next-auth/react";
@@ -9,7 +9,11 @@ import { TypographySmall } from "./Typography/TypographySmall";
 import { toast } from "sonner";
 import { ShareButton } from "./ShareButton";
 
-export default function PostActions({ postName }: { postName: string }) {
+type PostActionsProps = {
+  postName: string;
+  elaborate?: boolean;
+};
+export default function PostActions({ postName, elaborate }: PostActionsProps) {
   const { data: session } = useSession();
   const utils = api.useUtils();
   const { data } = api.post.getPostData.useQuery(
@@ -37,8 +41,6 @@ export default function PostActions({ postName }: { postName: string }) {
   });
 
   const hasLiked = data && data.Likes.length > 0;
-
-  data?.Likes[0]?.id;
 
   function handleLikeClick(event: React.SyntheticEvent) {
     event.preventDefault();
@@ -68,9 +70,10 @@ export default function PostActions({ postName }: { postName: string }) {
   return (
     <>
       <Button
-        variant={"ghost"}
+        variant={elaborate ? "outline" : "ghost"}
         size={"sm"}
         onClick={(event) => handleLikeClick(event)}
+        className={elaborate ? "rounded-full" : ""}
       >
         <Heart fill={`${hasLiked ? "red" : ""}`} />
         <div className="ml-2 font-mono">
@@ -78,14 +81,20 @@ export default function PostActions({ postName }: { postName: string }) {
         </div>
       </Button>
       <Link href={`/blog/${postName}/comments`}>
-        <Button variant={"ghost"} size={"sm"}>
+        <Button
+          variant={elaborate ? "outline" : "ghost"}
+          size={"sm"}
+          className={elaborate ? "rounded-full" : ""}
+        >
           <MessageCircle />
           <div className="ml-2 font-mono">
             <TypographySmall>{data?._count.Comments}</TypographySmall>
           </div>
         </Button>
       </Link>
-      <ShareButton />
+      <div className={`${elaborate ? "ml-auto" : ""}`}>
+        <ShareButton elaborate={elaborate} />
+      </div>
     </>
   );
 }
