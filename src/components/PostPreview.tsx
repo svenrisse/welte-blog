@@ -27,20 +27,23 @@ export default function PostPreview({ post }: { post: PostConnectionEdges }) {
             <div className="flex gap-2 pb-1 lg:pt-2">
               <PostBadges post={post} />
             </div>
+            <div className="hidden justify-between pt-2 transition-opacity duration-500 ease-in-out group-hover:opacity-100 md:flex lg:opacity-0">
+              <PostActions postName={post.node!._sys.filename} />
+            </div>
           </div>
-          <div>
+          <div className="flex w-4/12 justify-center">
             <Image
               src={post.node!.heroImage}
               alt={post.node!.title}
               width={0}
               height={0}
               sizes="100vw"
-              className="h-24 w-24 rounded-xl md:h-28 md:w-28 lg:h-32 lg:w-32 xl:h-40 xl:w-40"
+              className="h-28 w-32 rounded-xl md:h-32 md:w-32 lg:h-40 lg:w-40 xl:h-40 xl:w-48"
             />
           </div>
         </div>
       </Link>
-      <div className="flex justify-between pt-2 opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100">
+      <div className="flex justify-between pt-2 md:hidden">
         <PostActions postName={post.node!._sys.filename} />
       </div>
     </div>
