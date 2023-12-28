@@ -93,7 +93,7 @@ export default function PostActions({ postName, elaborate }: PostActionsProps) {
         </Button>
       </Link>
       <div className={`${elaborate ? "ml-auto" : ""}`}>
-        <ShareButton elaborate={elaborate} />
+        <ShareButton elaborate={elaborate} postName={postName} />
       </div>
     </>
   );
