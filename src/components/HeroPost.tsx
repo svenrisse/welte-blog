@@ -5,7 +5,6 @@ import format from "date-fns/format";
 import { parseISO } from "date-fns";
 import PostActions from "./PostActions";
 import PostBadges from "./PostBadges";
-import { TypographyH2 } from "./Typography/TypographyH2";
 import { TypographyH1 } from "./Typography/TypographyH1";
 import { TypographyMuted } from "./Typography/TypographyMuted";
 
@@ -40,7 +39,7 @@ export default function HeroPost({ post }: { post: PostConnectionEdges }) {
         <div className="flex gap-2 px-6 py-4 md:py-2 lg:py-3 2xl:py-6">
           <PostBadges post={post} />
         </div>
-        <div className="flex justify-between px-6 opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100 md:justify-center md:gap-8">
+        <div className="flex justify-between px-6 transition-opacity duration-500 ease-in-out group-hover:opacity-100 md:justify-center md:gap-8 lg:opacity-0">
           <PostActions postName={post.node!._sys.filename} />
         </div>
       </div>
