@@ -94,6 +94,38 @@ export const postRouter = createTRPCRouter({
         },
       });
     }),
+  addResponse: protectedProcedure
+    .input(
+      z.object({
+        commentId: z.string(),
+        text: z.string(),
+        postName: z.string(),
+      }),
+    )
+    .mutation(({ ctx, input }) => {
+      return ctx.db.comment.update({
+        where: {
+          id: input.commentId,
+        },
+        data: {
+          Responses: {
+            create: {
+              text: input.text,
+              user: {
+                connect: {
+                  id: ctx.session.user.id,
+                },
+              },
+              post: {
+                connect: {
+                  name: input.postName,
+                },
+              },
+            },
+          },
+        },
+      });
+    }),
   getPostData: publicProcedure
     .input(z.object({ postName: z.string() }))
     .query(({ ctx, input }) => {
@@ -107,7 +139,16 @@ export const postRouter = createTRPCRouter({
               userId: ctx.session?.user.id,
             },
           },
-          _count: true,
+          _count: {
+            select: {
+              Likes: true,
+              Comments: {
+                where: {
+                  originalCommentId: null,
+                },
+              },
+            },
+          },
         },
       });
     }),
@@ -119,9 +160,14 @@ export const postRouter = createTRPCRouter({
           post: {
             name: input.postName,
           },
+          originalCommentId: null,
         },
+        take: 2,
         include: {
           user: true,
+          Responses: {
+            take: 2,
+          },
         },
         orderBy: [{ createdAt: "desc" }],
       });
