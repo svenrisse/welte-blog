@@ -184,7 +184,13 @@ export const postRouter = createTRPCRouter({
             },
           },
         },
-        orderBy: [{ createdAt: "desc" }],
+        orderBy: [
+          {
+            CommentLikes: {
+              _count: "desc",
+            },
+          },
+        ],
         take: input.limit + 1,
         cursor: input.cursor ? { id: input.cursor } : undefined,
       });
