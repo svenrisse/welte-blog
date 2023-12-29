@@ -136,7 +136,17 @@ export default function Page() {
         </div>
         <CreateComment slug={slug} />
         <div className="flex w-full flex-col gap-8 self-start">{comments}</div>
-        <Button onClick={() => handleLoadMore()}>Load more...</Button>
+        <div className="self-start">
+          {hasNextPage && (
+            <Button
+              variant={"outline"}
+              size={"sm"}
+              onClick={() => handleLoadMore()}
+            >
+              Load more...
+            </Button>
+          )}
+        </div>
       </main>
     </>
   );
