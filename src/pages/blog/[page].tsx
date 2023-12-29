@@ -15,10 +15,12 @@ import { TypographyMuted } from "~/components/Typography/TypographyMuted";
 import { TypographyLead } from "~/components/Typography/TypographyLead";
 import { TypographyH3 } from "~/components/Typography/TypographyH3";
 import { api } from "~/utils/api";
-import { PostComments } from "~/components/PostComments";
+import { Comment } from "~/components/Comment";
 import { CreateComment } from "~/components/CreateComment";
+import { useSession } from "next-auth/react";
 
 export default function Page() {
+  const { data: session } = useSession();
   const router = useRouter();
   const slug = router.asPath.split("/")[2]!;
 
@@ -32,7 +34,9 @@ export default function Page() {
     },
   });
 
-  const { data: comments } = api.post.getComments.useQuery({ postName: slug });
+  const { data: commentData } = api.post.getComments.useQuery({
+    postName: slug,
+  });
 
   const date = data && parseISO(data.data.post.createdAt!);
 
@@ -43,6 +47,17 @@ export default function Page() {
       "MMM d" +
         (date!.getFullYear() == new Date().getFullYear() ? "" : ", YYYY"),
     );
+
+  const comments = commentData?.map((comment) => {
+    return (
+      <Comment
+        comment={comment}
+        postName={slug}
+        key={comment.id}
+        session={session}
+      />
+    );
+  });
 
   return (
     <>
@@ -93,7 +108,7 @@ export default function Page() {
         </div>
         <CreateComment slug={slug} />
         <div className="flex w-full flex-col gap-8 self-start pb-8">
-          {comments && <PostComments comments={comments} postName={slug} />}
+          {comments}
         </div>
       </main>
     </>
