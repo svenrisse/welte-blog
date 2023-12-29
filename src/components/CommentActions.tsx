@@ -13,6 +13,7 @@ import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { type Session } from "next-auth";
 import { api } from "~/utils/api";
+import { signIn } from "next-auth/react";
 
 type CommentActionsProps = {
   postName: string;
@@ -22,6 +23,7 @@ type CommentActionsProps = {
     CommentLikes: number;
     Responses: number;
   };
+  liked: boolean;
 };
 
 const commentSchema = object({
@@ -33,11 +35,27 @@ export default function CommentActions({
   session,
   commentId,
   count,
+  liked,
 }: CommentActionsProps) {
   const [reply, setReply] = useState(false);
   const [text, setText] = useState("");
+  const utils = api.useUtils();
 
-  const { isLoading, mutateAsync } = api.post.addResponse.useMutation({});
+  const { isLoading, mutateAsync } = api.post.addResponse.useMutation({
+    onSuccess: () => {
+      void utils.post.getComments.invalidate({ postName: postName });
+    },
+  });
+  const { mutateAsync: likeComment } = api.post.likeComment.useMutation({
+    onSuccess: () => {
+      void utils.post.getComments.invalidate({ postName: postName });
+    },
+  });
+  const { mutateAsync: unlikeComment } = api.post.unlikeComment.useMutation({
+    onSuccess: () => {
+      void utils.post.getComments.invalidate({ postName: postName });
+    },
+  });
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -59,6 +77,32 @@ export default function CommentActions({
       },
     );
     setText("");
+  };
+
+  const handeLikeClick = (event: React.SyntheticEvent) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (!session) {
+      toast.info("Please login to like posts.", {
+        action: {
+          label: "Login",
+          onClick: () => void signIn(),
+        },
+      });
+      return;
+    }
+
+    if (!liked) {
+      void likeComment({
+        commentId: commentId,
+      });
+      return;
+    }
+
+    void unlikeComment({
+      commentId: commentId,
+    });
   };
 
   if (reply) {
@@ -106,10 +150,10 @@ export default function CommentActions({
       <Button
         variant={"ghost"}
         size={"sm"}
-        onClick={(event) => console.log(event)}
+        onClick={(event) => handeLikeClick(event)}
         className="px-0"
       >
-        <Heart fill={``} />
+        <Heart fill={`${liked ? "red" : ""}`} />
         <div className="ml-2 font-mono">
           <TypographySmall>{count.CommentLikes}</TypographySmall>
         </div>

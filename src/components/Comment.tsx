@@ -4,10 +4,12 @@ import format from "date-fns/format";
 import { TypographyMuted } from "./Typography/TypographyMuted";
 import { Typography } from "./Typography/Typography";
 import { TypographySmall } from "./Typography/TypographySmall";
-import { Separator } from "~/components/ui/separator";
 import { CommentDropdown } from "./CommentDropdown";
 import CommentActions from "./CommentActions";
 import { type Session } from "next-auth";
+import { Router } from "next/router";
+import { RouterOutputs } from "~/utils/api";
+import { CommentLike } from "@prisma/client";
 
 type Comment = {
   user: {
@@ -25,6 +27,7 @@ type Comment = {
   updatedAt: Date;
   originalCommentId: string | null;
   Responses: Comment[];
+  CommentLikes: CommentLike[];
   _count: {
     CommentLikes: number;
     Responses: number;
@@ -35,9 +38,15 @@ type PostCommentsProps = {
   postName: string;
   session: Session | null;
   comment: Comment;
+  liked: boolean;
 };
 
-export const Comment = ({ comment, postName, session }: PostCommentsProps) => {
+export const Comment = ({
+  comment,
+  postName,
+  session,
+  liked,
+}: PostCommentsProps) => {
   const date = comment.createdAt;
   const formattedDate = format(
     date,
@@ -51,6 +60,7 @@ export const Comment = ({ comment, postName, session }: PostCommentsProps) => {
         postName={postName}
         session={session}
         comment={response}
+        liked={response.CommentLikes.length > 0}
       />
     );
   });
@@ -93,6 +103,7 @@ export const Comment = ({ comment, postName, session }: PostCommentsProps) => {
               commentId={comment.id}
               postName={postName}
               count={comment._count}
+              liked={liked}
             />
           </div>
         </div>

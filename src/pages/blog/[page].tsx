@@ -43,7 +43,7 @@ export default function Page() {
   } = api.post.getComments.useInfiniteQuery(
     {
       postName: slug,
-      limit: 2,
+      limit: 10,
     },
     { getNextPageParam: (lastPage) => lastPage.nextCursor },
   );
@@ -68,6 +68,7 @@ export default function Page() {
         key={comment.id}
         session={session}
         postName={slug}
+        liked={comment.CommentLikes.length > 0}
       />
     );
   });
