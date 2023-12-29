@@ -18,6 +18,10 @@ type CommentActionsProps = {
   postName: string;
   session: Session | null;
   commentId: string;
+  count: {
+    CommentLikes: number;
+    Responses: number;
+  };
 };
 
 const commentSchema = object({
@@ -28,6 +32,7 @@ export default function CommentActions({
   postName,
   session,
   commentId,
+  count,
 }: CommentActionsProps) {
   const [reply, setReply] = useState(false);
   const [text, setText] = useState("");
@@ -106,7 +111,7 @@ export default function CommentActions({
       >
         <Heart fill={``} />
         <div className="ml-2 font-mono">
-          <TypographySmall>{0}</TypographySmall>
+          <TypographySmall>{count.CommentLikes}</TypographySmall>
         </div>
       </Button>
       <Button
@@ -117,7 +122,7 @@ export default function CommentActions({
       >
         <MessageCircle />
         <div className="ml-2 font-mono">
-          <TypographySmall>{0}</TypographySmall>
+          <TypographySmall>{count.Responses}</TypographySmall>
         </div>
       </Button>
       <div>
