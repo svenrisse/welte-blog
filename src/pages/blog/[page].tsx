@@ -107,9 +107,7 @@ export default function Page() {
           </TypographyH3>
         </div>
         <CreateComment slug={slug} />
-        <div className="flex w-full flex-col gap-8 self-start pb-8">
-          {comments}
-        </div>
+        <div className="flex w-full flex-col gap-8 self-start">{comments}</div>
       </main>
     </>
   );
