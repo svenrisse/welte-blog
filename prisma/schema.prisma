@@ -56,6 +56,8 @@ model CommentLike {
   commentId String
   user      User    @relation(fields: [userId], references: [id])
   userId    String
+
+  @@unique([commentId, userId])
 }
 
 // Necessary for Next auth
