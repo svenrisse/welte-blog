@@ -12,10 +12,12 @@ import { object, string } from "zod";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { type Session } from "next-auth";
+import { api } from "~/utils/api";
 
 type CommentActionsProps = {
   postName: string;
   session: Session | null;
+  commentId: string;
 };
 
 const commentSchema = object({
@@ -25,9 +27,12 @@ const commentSchema = object({
 export default function CommentActions({
   postName,
   session,
+  commentId,
 }: CommentActionsProps) {
   const [reply, setReply] = useState(false);
   const [text, setText] = useState("");
+
+  const { isLoading, mutateAsync } = api.post.addResponse.useMutation({});
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -38,13 +43,16 @@ export default function CommentActions({
       toast.error("Comment must be between 3 and 250 characters long.");
       return;
     }
-    toast.promise(mutateAsync({ postName: slug, text: text }), {
-      loading: "Loading...",
-      success: () => {
-        return "Comment has been posted.";
+    toast.promise(
+      mutateAsync({ text: text, commentId: commentId, postName: postName }),
+      {
+        loading: "Loading...",
+        success: () => {
+          return "Comment has been posted.";
+        },
+        error: "Error",
       },
-      error: "Error",
-    });
+    );
     setText("");
   };
 
