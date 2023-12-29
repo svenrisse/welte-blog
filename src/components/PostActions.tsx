@@ -93,7 +93,10 @@ export default function PostActions({ postName, elaborate }: PostActionsProps) {
         </Button>
       </Link>
       <div className={`${elaborate ? "ml-auto" : ""}`}>
-        <ShareButton elaborate={elaborate} postName={postName} />
+        <ShareButton
+          elaborate={elaborate}
+          url={`https://welte.vercel.app/blog/${postName}`}
+        />
       </div>
     </>
   );
