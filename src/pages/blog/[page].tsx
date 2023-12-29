@@ -18,6 +18,7 @@ import { api } from "~/utils/api";
 import { Comment } from "~/components/Comment";
 import { CreateComment } from "~/components/CreateComment";
 import { useSession } from "next-auth/react";
+import { Button } from "~/components/ui/button";
 
 export default function Page() {
   const { data: session } = useSession();
@@ -34,9 +35,18 @@ export default function Page() {
     },
   });
 
-  const { data: commentData } = api.post.getComments.useQuery({
-    postName: slug,
-  });
+  const {
+    data: commentData,
+    hasNextPage,
+    fetchNextPage,
+    isFetching,
+  } = api.post.getComments.useInfiniteQuery(
+    {
+      postName: slug,
+      limit: 2,
+    },
+    { getNextPageParam: (lastPage) => lastPage.nextCursor },
+  );
 
   const date = data && parseISO(data.data.post.createdAt!);
 
@@ -48,16 +58,25 @@ export default function Page() {
         (date!.getFullYear() == new Date().getFullYear() ? "" : ", YYYY"),
     );
 
-  const comments = commentData?.map((comment) => {
+  const flatComments =
+    commentData?.pages.flatMap((page) => page.comments) ?? [];
+
+  const comments = flatComments.map((comment) => {
     return (
       <Comment
         comment={comment}
-        postName={slug}
         key={comment.id}
         session={session}
+        postName={slug}
       />
     );
   });
+
+  const handleLoadMore = () => {
+    if (hasNextPage && !isFetching) {
+      void fetchNextPage();
+    }
+  };
 
   return (
     <>
@@ -108,6 +127,7 @@ export default function Page() {
         </div>
         <CreateComment slug={slug} />
         <div className="flex w-full flex-col gap-8 self-start">{comments}</div>
+        <Button onClick={() => handleLoadMore()}>Load more...</Button>
       </main>
     </>
   );

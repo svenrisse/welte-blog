@@ -153,26 +153,29 @@ export const postRouter = createTRPCRouter({
       });
     }),
   getComments: publicProcedure
-    .input(z.object({ postName: z.string() }))
-    .query(({ ctx, input }) => {
-      return ctx.db.comment.findMany({
+    .input(
+      z.object({
+        postName: z.string(),
+        cursor: z.string().nullish(),
+        limit: z.number().min(1).max(10).default(10),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const comments = await ctx.db.comment.findMany({
         where: {
           post: {
             name: input.postName,
           },
           originalCommentId: null,
         },
-        take: 2,
         include: {
           _count: true,
           user: true,
           Responses: {
-            take: 2,
             include: {
               _count: true,
               user: true,
               Responses: {
-                take: 2,
                 include: {
                   _count: true,
                   user: true,
@@ -182,7 +185,21 @@ export const postRouter = createTRPCRouter({
           },
         },
         orderBy: [{ createdAt: "desc" }],
+        take: input.limit + 1,
+        cursor: input.cursor ? { id: input.cursor } : undefined,
       });
+
+      let nextCursor: typeof input.cursor | undefined = undefined;
+
+      if (comments.length > input.limit) {
+        const nextItem = comments.pop() as (typeof comments)[number];
+        nextCursor = nextItem.id;
+      }
+
+      return {
+        comments,
+        nextCursor,
+      };
     }),
   getAllCommentsAndResponses: publicProcedure
     .input(z.object({ postName: z.string() }))
