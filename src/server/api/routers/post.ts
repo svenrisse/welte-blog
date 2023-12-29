@@ -164,12 +164,40 @@ export const postRouter = createTRPCRouter({
         },
         take: 2,
         include: {
+          _count: true,
           user: true,
           Responses: {
             take: 2,
+            include: {
+              _count: true,
+              user: true,
+              Responses: {
+                take: 2,
+                include: {
+                  _count: true,
+                  user: true,
+                },
+              },
+            },
           },
         },
         orderBy: [{ createdAt: "desc" }],
+      });
+    }),
+  getAllCommentsAndResponses: publicProcedure
+    .input(z.object({ postName: z.string() }))
+    .query(({ ctx, input }) => {
+      return ctx.db.comment.findMany({
+        where: {
+          post: {
+            name: input.postName,
+          },
+          originalCommentId: null,
+        },
+        include: {
+          _count: true,
+          Responses: true,
+        },
       });
     }),
 });
