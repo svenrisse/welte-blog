@@ -34,12 +34,15 @@ import { useMediaQuery } from "usehooks-ts";
 
 type ShareButtonProps = {
   elaborate?: boolean;
-  postName: string;
+  removePadding?: boolean;
+  url: string;
 };
 
-export const ShareButton = ({ elaborate, postName }: ShareButtonProps) => {
-  const url = `https://welte.vercel.app/blog/${postName}`;
-
+export const ShareButton = ({
+  elaborate,
+  url,
+  removePadding,
+}: ShareButtonProps) => {
   const isDesktop = useMediaQuery("(min-width: 800px)");
 
   if (isDesktop) {
@@ -49,7 +52,9 @@ export const ShareButton = ({ elaborate, postName }: ShareButtonProps) => {
           <Button
             variant={elaborate ? "outline" : "ghost"}
             size={"sm"}
-            className={elaborate ? "rounded-full" : ""}
+            className={`${elaborate ? "rounded-full" : ""} ${
+              removePadding ? "px-0" : ""
+            }`}
           >
             {elaborate ? <TypographyMuted>Share</TypographyMuted> : <Share />}
           </Button>
