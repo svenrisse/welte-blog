@@ -7,6 +7,7 @@ import { TypographySmall } from "./Typography/TypographySmall";
 import { Separator } from "~/components/ui/separator";
 import { CommentDropdown } from "./CommentDropdown";
 import { useSession } from "next-auth/react";
+import CommentActions from "./CommentActions";
 
 type PostCommentsProps = {
   postName: string;
@@ -57,12 +58,17 @@ export const PostComments = ({ comments, postName }: PostCommentsProps) => {
           </Avatar>
           <Separator orientation="vertical" />
         </div>
-        <div className="flex flex-col gap-2">
-          <div className="flex gap-4">
-            <Typography>{comment.user.name}</Typography>
-            <TypographyMuted>{formattedDate}</TypographyMuted>
+        <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-2">
+            <div className="flex gap-4">
+              <Typography>{comment.user.name}</Typography>
+              <TypographyMuted>{formattedDate}</TypographyMuted>
+            </div>
+            <TypographySmall>{comment.text}</TypographySmall>
           </div>
-          <TypographySmall>{comment.text}</TypographySmall>
+          <div className="flex gap-4">
+            <CommentActions session={data} />
+          </div>
         </div>
         <div className="ml-auto">
           <CommentDropdown
