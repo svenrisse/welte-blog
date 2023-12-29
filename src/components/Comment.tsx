@@ -73,8 +73,8 @@ export const Comment = ({ comment, postName, session }: PostCommentsProps) => {
         <div className="h-[100%] w-px bg-muted"></div>
       </div>
       <div className="flex w-full flex-col gap-4">
-        <div className="flex flex-col gap-2">
-          <div className="flex gap-4">
+        <div className="flex flex-col gap-2 rounded-lg px-2 hover:cursor-pointer hover:bg-primary-foreground">
+          <div className="flex items-center gap-4">
             <Typography>{comment.user.name}</Typography>
             <TypographyMuted>{formattedDate}</TypographyMuted>
             <div className="ml-auto">
@@ -87,14 +87,14 @@ export const Comment = ({ comment, postName, session }: PostCommentsProps) => {
             </div>
           </div>
           <TypographySmall>{comment.text}</TypographySmall>
-        </div>
-        <div className="flex gap-4">
-          <CommentActions
-            session={session}
-            commentId={comment.id}
-            postName={postName}
-            count={comment._count}
-          />
+          <div className="flex gap-6 pt-2">
+            <CommentActions
+              session={session}
+              commentId={comment.id}
+              postName={postName}
+              count={comment._count}
+            />
+          </div>
         </div>
         <div className="flex w-full flex-col gap-4">{responses}</div>
       </div>
