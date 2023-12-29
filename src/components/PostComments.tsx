@@ -67,7 +67,11 @@ export const PostComments = ({ comments, postName }: PostCommentsProps) => {
             <TypographySmall>{comment.text}</TypographySmall>
           </div>
           <div className="flex gap-4">
-            <CommentActions session={data} />
+            <CommentActions
+              session={data}
+              commentId={comment.id}
+              postName={postName}
+            />
           </div>
         </div>
         <div className="ml-auto">
