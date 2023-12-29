@@ -19,6 +19,8 @@ import { Comment } from "~/components/Comment";
 import { CreateComment } from "~/components/CreateComment";
 import { useSession } from "next-auth/react";
 import { Button } from "~/components/ui/button";
+import { Loader2 } from "lucide-react";
+import { Skeleton } from "~/components/ui/skeleton";
 
 export default function Page() {
   const { data: session } = useSession();
@@ -40,10 +42,11 @@ export default function Page() {
     hasNextPage,
     fetchNextPage,
     isFetching,
+    isInitialLoading,
   } = api.post.getComments.useInfiniteQuery(
     {
       postName: slug,
-      limit: 10,
+      limit: 5,
     },
     { getNextPageParam: (lastPage) => lastPage.nextCursor },
   );
@@ -122,9 +125,14 @@ export default function Page() {
         </div>
         <Separator />
         <div className="self-start" id="commentSection">
-          <TypographyH3>
-            {comments?.length} {comments?.length === 1 ? "Comment" : "Comments"}
-          </TypographyH3>
+          {isInitialLoading ? (
+            <Skeleton className="h-6 w-32" />
+          ) : (
+            <TypographyH3>
+              {comments.length}{" "}
+              {comments?.length === 1 ? "Comment" : "Comments"}
+            </TypographyH3>
+          )}
         </div>
         <CreateComment slug={slug} />
         <div className="flex w-full flex-col gap-8 self-start">{comments}</div>
