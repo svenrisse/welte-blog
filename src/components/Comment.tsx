@@ -10,6 +10,7 @@ import { type Session } from "next-auth";
 import { Router } from "next/router";
 import { RouterOutputs } from "~/utils/api";
 import { CommentLike } from "@prisma/client";
+import Link from "next/link";
 
 type Comment = {
   user: {
@@ -66,7 +67,11 @@ export const Comment = ({
   });
 
   return (
-    <div key={comment.id} className="flex gap-4 first:pt-0">
+    <Link
+      href={`/blog/${postName}/comments/${comment.id}`}
+      key={comment.id}
+      className="flex gap-4 first:pt-0"
+    >
       <div className="flex flex-col items-center gap-2">
         <Avatar>
           {comment.user.image ? (
@@ -109,6 +114,6 @@ export const Comment = ({
         </div>
         <div className="flex w-full flex-col gap-4">{responses}</div>
       </div>
-    </div>
+    </Link>
   );
 };
