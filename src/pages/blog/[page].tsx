@@ -19,8 +19,8 @@ import { Comment } from "~/components/Comment";
 import { CreateComment } from "~/components/CreateComment";
 import { useSession } from "next-auth/react";
 import { Button } from "~/components/ui/button";
-import { Loader2 } from "lucide-react";
 import { Skeleton } from "~/components/ui/skeleton";
+import PostBadges from "~/components/PostBadges";
 
 export default function Page() {
   const { data: session } = useSession();
@@ -103,6 +103,9 @@ export default function Page() {
               <TypographyMuted>{formattedDate}</TypographyMuted>
             </div>
           </div>
+        </div>
+        <div className="self-start">
+          <PostBadges tags={data?.data.post.tags} />
         </div>
         <div className="flex w-full flex-col gap-2">
           <Separator />
