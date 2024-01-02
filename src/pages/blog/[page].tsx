@@ -58,7 +58,7 @@ export default function Page() {
     format(
       date!,
       "MMM d" +
-        (date!.getFullYear() == new Date().getFullYear() ? "" : ", YYYY"),
+        (date!.getFullYear() == new Date().getFullYear() ? "" : ", yyyy"),
     );
 
   const flatComments =

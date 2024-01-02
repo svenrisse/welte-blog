@@ -13,7 +13,7 @@ export default function PostPreview({ post }: { post: PostConnectionEdges }) {
 
   const formattedDate = format(
     date,
-    "MMM d" + (date.getFullYear() == new Date().getFullYear() ? "" : ", YYYY"),
+    "MMM d" + (date.getFullYear() == new Date().getFullYear() ? "" : ", yyyy"),
   );
 
   return (

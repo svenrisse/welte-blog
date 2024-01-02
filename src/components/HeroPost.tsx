@@ -12,7 +12,7 @@ export default function HeroPost({ post }: { post: PostConnectionEdges }) {
   const date = parseISO(post.node!.createdAt!);
   const formattedDate = format(
     date,
-    "MMM d" + (date.getFullYear() == new Date().getFullYear() ? "" : ", YYYY"),
+    "MMM d" + (date.getFullYear() == new Date().getFullYear() ? "" : ", yyyy"),
   );
 
   return (

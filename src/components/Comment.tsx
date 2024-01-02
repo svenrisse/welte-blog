@@ -50,7 +50,7 @@ export const Comment = ({
   const date = comment.createdAt;
   const formattedDate = format(
     date,
-    "MMM d" + (date.getFullYear() == new Date().getFullYear() ? "" : ", YYYY"),
+    "MMM d" + (date.getFullYear() == new Date().getFullYear() ? "" : ", yyyy"),
   );
 
   const responses = comment.Responses?.map((response) => {
