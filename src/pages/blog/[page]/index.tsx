@@ -104,7 +104,7 @@ export default function Page() {
             </div>
           </div>
         </div>
-        <div className="self-start">
+        <div className="flex gap-2 self-start">
           <PostBadges tags={data?.data.post.tags} />
         </div>
         <div className="flex w-full flex-col gap-2">
