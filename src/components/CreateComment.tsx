@@ -10,6 +10,7 @@ import { useState } from "react";
 import { object, string } from "zod";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import { signIn } from "next-auth/react";
 
 const commentSchema = object({
   text: string({ required_error: "Text is required" }).min(3).max(250),
@@ -34,6 +35,16 @@ export const CreateComment = ({ slug }: CreateCommentProps) => {
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
+
+    if (!session) {
+      toast.info("Please login to comment posts.", {
+        action: {
+          label: "Login",
+          onClick: () => void signIn(),
+        },
+      });
+      return;
+    }
 
     try {
       commentSchema.parse({ text });
@@ -67,6 +78,7 @@ export const CreateComment = ({ slug }: CreateCommentProps) => {
           )}
         </Avatar>
         <Textarea
+          disabled={!session}
           placeholder="Write a comment..."
           id="comment"
           onChange={(e) => setText(e.target.value)}
