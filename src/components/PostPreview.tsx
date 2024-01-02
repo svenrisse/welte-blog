@@ -25,7 +25,7 @@ export default function PostPreview({ post }: { post: PostConnectionEdges }) {
             <TypographyMuted>{post.node?.description}</TypographyMuted>
             <TypographyMuted>{formattedDate}</TypographyMuted>
             <div className="flex gap-2 pb-1 lg:pt-2">
-              <PostBadges post={post} />
+              <PostBadges tags={post.node?.tags} />
             </div>
             <div className="hidden justify-between pt-2 transition-opacity duration-500 ease-in-out group-hover:opacity-100 md:flex lg:opacity-0">
               <PostActions postName={post.node!._sys.filename} />
