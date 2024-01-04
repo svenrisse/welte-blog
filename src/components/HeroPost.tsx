@@ -37,7 +37,7 @@ export default function HeroPost({ post }: { post: PostConnectionEdges }) {
           <TypographyMuted>{formattedDate}</TypographyMuted>
         </div>
         <div className="flex gap-2 px-6 py-4 md:py-2 lg:py-3 2xl:py-6">
-          <PostBadges post={post} />
+          <PostBadges tags={post.node?.tags} />
         </div>
         <div className="flex justify-between px-6 transition-opacity duration-500 ease-in-out group-hover:opacity-100 md:justify-center md:gap-8 lg:opacity-0">
           <PostActions postName={post.node!._sys.filename} />
